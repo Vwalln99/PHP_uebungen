@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -7,9 +8,9 @@
     <link rel="stylesheet" href="pico.classless.min.css">
     <title>Depot</title>
 </head>
-<body>
-<header>
-	<?php global $depot; ?>
-    <h1>Depot: </h1>
-</header>
 
+<body>
+    <header>
+        <?php global $depot; ?>
+        <h1>Depot: <?= $depot->owner ?></h1>
+    </header>
