@@ -46,7 +46,6 @@ class Depot
     public static function fromArray(array $data): Depot
     {
         return new Depot(
-
             (array) $data["stocks"],
             (float) ($data["balance"]),
             (string) ($data["iban"]),
