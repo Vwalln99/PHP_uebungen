@@ -37,15 +37,33 @@
             } else {
                 echo "<p>Fehler beim Hochladen des Bildes.</p>";
             }
-            echo "<p>Geschlecht: $gender</p>";
-            echo "<p>Vorname: $firstName</p>";
-            echo "<p>Nachname: $lastName</p>";
-            echo "<p>Alter: $age</p>";
-            echo "<p>Telefonnummer: $phone</p>";
-            echo "<p>E-Mail: $email</p>";
-            echo "<p>Straße: $street</p>";
-            echo "<p>Postleitzahl: $zip</p>";
-            echo "<p>Ort: $city</p>";
+            echo '<pre>';
+            echo "<p>Vorname:" . "\t" . "\t" . "\t" . "\t" . " $firstName</p>";
+            echo '</pre>';
+            echo '<pre>';
+            echo "<p>Nachname: " . "\t" . "\t" . "\t" . "\t" . " $lastName</p>";
+            echo '</pre>';
+            echo '<pre>';
+            echo "<p>Alter: " . "\t" . "\t" . "\t" . "\t" . "\t" . " $age</p>";
+            echo '</pre>';
+            echo '<pre>';
+            echo "<p>Geschlecht:" . "\t" . "\t" . "\t" . "\t" . " $gender</p>";
+            echo '</pre>';
+            echo '<pre>';
+            echo "<p>Telefonnummer: "  . "\t" . "\t" . "\t" . " $phone</p>";
+            echo '</pre>';
+            echo '<pre>';
+            echo "<p>E-Mail: " . "\t" . "\t" . "\t" . "\t" . " $email</p>";
+            echo '</pre>';
+            echo '<pre>';
+            echo "<p>Straße: " . "\t" . "\t" . "\t" . "\t" . " $street</p>";
+            echo '</pre>';
+            echo '<pre>';
+            echo "<p>Postleitzahl: "  . "\t" . "\t" . "\t" . " $zip</p>";
+            echo '</pre>';
+            echo '<pre>';
+            echo "<p>Ort: " . "\t" . "\t" . "\t" . "\t" . "\t" . " $city</p>";
+            echo '</pre>';
             $formclass = 'hidden';
         } else {
             $formclass = '';
