@@ -5,8 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     if ($username === 'admin' && $password === 'password') {
-        $_SESSION['loggedin'] = true;
-        header('Location: index.php');
+        $_SESSION['loggedin'] === true;
+        header('Location: admin.index.php');
         exit();
     } else {
         $error = "Ungültige Anmeldedaten.";

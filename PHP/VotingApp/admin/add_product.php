@@ -1,19 +1,19 @@
 <?php
-include '../includes/database.php';
-include '../includes/functions.php';
-include '../includes/session.php';
+include '../inc/database.php';
+include '../inc/functions.php';
+include '../inc/session.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     $title = $_POST['title'];
     $image_filename = $_FILES['image']['name'];
     $target_dir = "../img/";
-    $target_file = $target_dir . basename($image_filename);
+    $target_file = $target_dir . basename($filename);
 
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
         $caller = new ProductDatabaseCaller($db);
-        $caller->addProduct($title, $image_filename);
+        $caller->addProduct($title, $filename);
     }
 }
 
-header('Location: index.php');
+header('Location: admin.index.php');
 exit();

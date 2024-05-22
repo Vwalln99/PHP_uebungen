@@ -1,9 +1,9 @@
 <?php
-include '../includes/database.php';
-include '../includes/functions.php';
-include '../includes/session.php';
+include '../inc/database.php';
+include '../inc/functions.php';
+include '../inc/session.php';
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header('Location: ../login.php');
     exit();
 }
@@ -28,15 +28,15 @@ $products = $caller->getAllProducts();
     <div class="products">
         <?php foreach ($products as $product) : ?>
             <div class="product">
-                <img src="../assets/images/<?php echo $product->filename; ?>" alt="<?php echo $product->title; ?>">
+                <img src="../img/<?php echo $product->filename; ?>" alt="<?php echo $product->title; ?>">
                 <h2><?php echo $product->title; ?></h2>
                 <form method="post" action="edit_product.php">
-                    <input type="hidden" name="product_id" value="<?php echo $product->id; ?>">
+                    <input type="hidden" name="id" value="<?php echo $product->id; ?>">
                     <input type="text" name="title" value="<?php echo $product->title; ?>">
                     <button type="submit">Bearbeiten</button>
                 </form>
                 <form method="post" action="delete_product.php">
-                    <input type="hidden" name="product_id" value="<?php echo $product->id; ?>">
+                    <input type="hidden" name="id" value="<?php echo $product->id; ?>">
                     <button type="submit">Löschen</button>
                 </form>
             </div>

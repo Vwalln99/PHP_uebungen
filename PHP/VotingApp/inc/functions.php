@@ -37,7 +37,7 @@ class ProductDatabaseCaller
         $products = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $products[] = new Product($row['id'], $row['title'], $row['image_filename'], $row['upvotes'], $row['downvotes']);
+            $products[] = new Product($row['id'], $row['title'], $row['filename'], $row['upvotes'], $row['downvotes']);
         }
 
         return $products;
