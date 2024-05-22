@@ -12,7 +12,7 @@ function render($path, array $data = []): void
     require $path;
     $content = ob_get_contents();
     ob_end_clean();
-    require __DIR__ . "/../views/layouts/main.view.php";
+    require __DIR__ . "/../login/views/layouts/main.view.php";
 }
 function renderAdmin($path, array $data = []): void
 {
@@ -72,4 +72,14 @@ function scale_and_copy(string $filename, string $save_to, $max_width = 1024, $m
     imagedestroy($source);
 
     return true;
+}
+
+function renderLogin($path, array $data = []): void
+{
+    ob_start();
+    extract($data);
+    require $path;
+    $content = ob_get_contents();
+    ob_end_clean();
+    require __DIR__ . '/../login/views/layouts/main.view.php';
 }

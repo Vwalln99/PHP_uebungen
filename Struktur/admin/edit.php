@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../inc/all.php";
-require_once __DIR__ . "/edit.view.php";
+//require_once __DIR__ . "/edit.view.php";
 $imageGallery = new ImageGalleryCall($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,4 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'images' => $imageGallery->fetchAll(),
         'edit_error' => $edit_error ?? '',
     ]);
+    exit;
 }
+//render mit edit view
+$id = $_GET['id'] ?? null;
+renderAdmin(__DIR__ . "/login/views/edit.view.php", [
+    'image' => $imageGallery->fetchImageById($id),
+]);

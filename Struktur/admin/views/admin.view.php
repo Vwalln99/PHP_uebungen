@@ -19,11 +19,12 @@
                             <button style="margin: 10px; padding:5px;">Löschen</button>
                             <span style="color: red" <?= $delete_error ?? '' ?>></span>
                         </form>
-                        <form action="edit.php" method="POST">
+                        <a href="edit.php?id=<?= $image->id ?>" role="button">Bearbeiten</a>
+                        <!--  <link action="edit.php" method="POST">
                             <input type="hidden" name="id" value="<?= e($image->id) ?>">
                             <button style="margin: 10px; padding:5px;">Bearbeiten</button>
                             <span style="color: red" <?= $edit_error ?? '' ?>></span>
-                        </form>
+                        </a> -->
                     </td>
                 </tr>
             <?php endforeach; ?>

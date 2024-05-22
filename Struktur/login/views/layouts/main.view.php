@@ -12,6 +12,13 @@
 <body>
     <header>
         <h1>Image Gallery</h1>
+        <nav>
+            <ul>
+                <li><a href="../../index.php"></a></li>
+                <li><a href="../../login/login.php"></a></li>
+                <li><a href="../../login/logout.php"></a></li>
+            </ul>
+        </nav>
     </header>
     <main class="grid">
         <?php echo $content ?? ""; ?>
