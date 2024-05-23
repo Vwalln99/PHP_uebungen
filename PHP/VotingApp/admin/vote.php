@@ -1,18 +1,21 @@
 <?php
-include 'includes/database.php';
-include 'includes/functions.php';
-include 'includes/session.php';
+include '../inc/database.php';
+include '../inc/functions.php';
+include '../inc/session.php';
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $product_id = $_POST['product_id'];
+    $id = $_POST['id'];
     $vote = $_POST['vote'];
 
     $caller = new ProductDatabaseCaller($db);
+    echo "inside vote.php";
 
     if ($vote === 'up') {
-        $caller->upvoteProduct($product_id);
+        echo 'up';
+        $caller->upvoteProduct($id);
     } elseif ($vote === 'down') {
-        $caller->downvoteProduct($product_id);
+        echo 'down';
+        $caller->downvoteProduct($id);
     }
 }
 

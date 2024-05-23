@@ -51,22 +51,22 @@ class ProductDatabaseCaller
 
     public function deleteProduct($id)
     {
-        $stmt = $this->db->prepare("delete from products from where id=:id");
+        $stmt = $this->db->prepare("delete from products where id=:id");
         $stmt->execute(["id" => $id]);
     }
-    public function updateProduct($title, $filename)
+    public function updateProduct($id, $title)
     {
-        $stmt = $this->db->prepare("update products where id =:id");
-        $stmt->execute(["title" => $title, "filename" => $filename]);
+        $stmt = $this->db->prepare("update products set title = :title where id =:id");
+        $stmt->execute(["id" => $id, "title" => $title]);
     }
     public function getProductById($id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
+        $stmt = $this->db->prepare("select * from products where id = :id");
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($row) {
-            return new Product($row['id'], $row['title'], $row['image_filename'], $row['upvotes'], $row['downvotes']);
+            return new Product($row['id'], $row['title'], $row['filename'], $row['upvotes'], $row['downvotes']);
         }
 
         return null;

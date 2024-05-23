@@ -3,7 +3,7 @@ include '../inc/database.php';
 include '../inc/functions.php';
 include '../inc/session.php';
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: ../login.php');
     exit();
 }
@@ -33,7 +33,7 @@ $products = $caller->getAllProducts();
                 <form method="post" action="edit_product.php">
                     <input type="hidden" name="id" value="<?php echo $product->id; ?>">
                     <input type="text" name="title" value="<?php echo $product->title; ?>">
-                    <button type="submit">Bearbeiten</button>
+                    <button type="submit">Änderungen speichern</button>
                 </form>
                 <form method="post" action="delete_product.php">
                     <input type="hidden" name="id" value="<?php echo $product->id; ?>">

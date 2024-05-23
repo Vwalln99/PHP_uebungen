@@ -1,12 +1,12 @@
 <?php
-
+include 'inc/session.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
     if ($username === 'admin' && $password === 'password') {
-        $_SESSION['loggedin'] === true;
-        header('Location: admin.index.php');
+        $_SESSION['loggedin'] = true;
+        header('Location: admin/admin.index.php');
         exit();
     } else {
         $error = "Ungültige Anmeldedaten.";

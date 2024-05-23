@@ -3,11 +3,11 @@ include '../inc/database.php';
 include '../inc/functions.php';
 include '../inc/session.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
-    $product_id = $_POST['product_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+    $id = $_POST['id'];
 
     $caller = new ProductDatabaseCaller($db);
-    $caller->deleteProduct($product_id);
+    $caller->deleteProduct($id);
 }
 
 header('Location: admin.index.php');
