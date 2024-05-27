@@ -2,6 +2,16 @@
 require_once 'includes/db-connect.php';
 require_once 'includes/functions.php';
 
+$cat_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if (!$cat_id) {
+    include 'page_not_found.php';
+}
+
+$sql = "select id, name, description from category where id=:id;";
+$category = pdo_execute($pdo, $sql, ["id" => $cat_id])->fetch(PDO::FETCH_ASSOC);
+if (!$category) {
+    include "page_not_found.php";
+}
 $sql =
     "select a.id, a.title, a.summary, a.category_id, a.user_id,
 c.name as category,
@@ -12,20 +22,23 @@ from articles as a
 join category as c on a.category_id = c.id
 join user as u on a.user_id =u.id
 left join images as i on a.images_id = i.id
-where a.published=1
-order by a.id desc
-limit 6;";
-$articles = pdo_execute($pdo, $sql)->fetchAll(PDO::FETCH_ASSOC);
+where a.published=1 and a.category_id=:id
+order by a.id desc;";
+$articles = pdo_execute($pdo, $sql, ['id' => $cat_id])->fetchAll(PDO::FETCH_ASSOC);
 
 $sql = "select id, name from category where navigation = 1;";
 
 $navigation = pdo_execute($pdo, $sql)->fetchAll();
 
-$title = 'IT-News';
-$description = 'All about IT and New from Software Development and Hardware';
-$section = 1;
+$title = $category['name'];
+$description = $category['description'];
+$section = $cat_id;
 ?>
 <?php include './includes/header.php'; ?>
+<aside class="flex, justify-center items-center flex-col p-8">
+    <h1 class="text-4xl text-blue-500 mb-8"><?= e($category['name']) ?></h1>
+    <p class="text-gray-500"><?= e($category['description']) ?></p>
+</aside>
 <main class="flex flex-wrap p-8" id="content">
     <?php foreach ($articles as $article) : ?>
         <article class="w-full p-4 flex justify-between flex-col sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4">
