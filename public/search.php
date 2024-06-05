@@ -81,18 +81,19 @@ if ($count > $per_page) {
                         <li class="m-2">
                             <a href="search.php?search=<?= $search_term ?>&per_page=<?= $per_page ?>&offset=<?= $offset - $per_page ?>" class="p-2 bg-blue-500 text-white">Previous</a>
                         </li>
+
+                    <?php endif; ?>
+                    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                        <li class="m-2">
+                            <a href="search.php?search=<?= $search_term ?>&per_page=<?= $per_page ?>&offset=<?= ($i - 1) * $per_page ?>" class="p-2 text-white<?= ($i == $current_page ? 'bg-pink-600' : 'bg-blue-500') ?>"> <?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <?php if ($current_page < $total_pages) : ?>
+                        <li class="m-2">
+                            <a href="search.php?search=<?= $search_term ?>&per_page=<?= $per_page ?>&offset=<?= $offset + $per_page ?>" class="p-2 bg-blue-500 text-white">Next</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
-            <?php endif; ?>
-            <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                <li class="m-2">
-                    <a href="search.php?search=<?= $search_term ?>&per_page=<?= $per_page ?>&offset=<?= ($i - 1) * $per_page ?>" class="p-2 text-white<?= ($i == $current_page ? 'bg-pink-600' : 'bg-blue-500') ?>"> <?= $i ?></a>
-                </li>
-            <?php endfor; ?>
-            <?php if ($current_page < $total_pages) : ?>
-                <li class="m-2">
-                    <a href="search.php?search=<?= $search_term ?>&per_page=<?= $per_page ?>&offset=<?= $offset + $per_page ?>" class="p-2 bg-blue-500 text-white">Next</a>
-                </li>
-            <?php endif; ?>
             </nav>
         </section>
     <?php endif; ?>
