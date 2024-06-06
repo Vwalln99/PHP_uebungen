@@ -1,40 +1,28 @@
 <?php
-require_once 'includes/db-connect.php';
-require_once 'includes/functions.php';
+require '../src/bootstrap.php';
 
 $cat_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$cat_id) {
-    include 'page_not_found.php';
+    include APP_ROOT . '/public/page_not_found.php';
 }
 
-$sql = "select id, name, description from category where id=:id;";
-$category = pdo_execute($pdo, $sql, ["id" => $cat_id])->fetch(PDO::FETCH_ASSOC);
+$category = $cms->getCategory()->fetch($cat_id);
 if (!$category) {
-    include "page_not_found.php";
+    include APP_ROOT . "page_not_found.php";
 }
-$sql =
-    "select a.id, a.title, a.summary, a.category_id, a.user_id,
-c.name as category,
-concat(u.forename, ' ', u.surname) as author,
-i.filename as image_file,
-i.alttext as image_alt
-from articles as a
-join category as c on a.category_id = c.id
-join user as u on a.user_id =u.id
-left join images as i on a.images_id = i.id
-where a.published=1 and a.category_id=:id
-order by a.id desc;";
-$articles = pdo_execute($pdo, $sql, ['id' => $cat_id])->fetchAll(PDO::FETCH_ASSOC);
+$articles = $cms->getArticle()->getAll($cat_id);
+if (!$articles) {
+    echo ('No articles found.');
+}
 
-$sql = "select id, name from category where navigation = 1;";
 
-$navigation = pdo_execute($pdo, $sql)->fetchAll();
+$navigation = $cms->getCategory()->fetchNavigation();
 
 $title = $category['name'];
 $description = $category['description'];
 $section = $cat_id;
 ?>
-<?php include './includes/header.php'; ?>
+<?php include '../src/includes/header.php'; ?>
 <aside class="flex, justify-center items-center flex-col p-8">
     <h1 class="text-4xl text-blue-500 mb-8"><?= e($category['name']) ?></h1>
     <p class="text-gray-500"><?= e($category['description']) ?></p>
@@ -57,4 +45,4 @@ $section = $cat_id;
         </article>
     <?php endforeach; ?>
 </main>
-<?php include './includes/footer.php'; ?>
+<?php include '../src/includes/footer.php'; ?>

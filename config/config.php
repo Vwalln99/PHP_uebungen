@@ -9,7 +9,7 @@ $port = '3306';
 $dbname = 'cms_graz';
 $user_name = 'cms_graz';
 $password = '';
-$dsn = '$type:host=$host:$port;dbname=$dbname';
+$dsn = "$type:host=$host;dbname=$dbname";
 
 const MEDIA_TYPES = ['image/jpeg', 'image/png'];
 const FILE_EXTENSIONS = ['jpeg', 'jpg', 'png'];
