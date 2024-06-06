@@ -24,8 +24,7 @@ class Database extends PDO
                 $stmt->bindValue($key, $value);
             }
         }
-        var_dump($stmt->execute());
-        exit;
+				$stmt->execute();
         return $stmt;
     }
 }
