@@ -5,6 +5,7 @@ $articles = $cms->getArticle()->getAll(null, true, null, 6);
 $navigation = $cms->getCategory()->fetchNavigation();
 
 
+
 $title = 'IT-News';
 $description = 'All about IT and New from Software Development and Hardware';
 $section = '';
