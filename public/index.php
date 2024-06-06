@@ -2,10 +2,8 @@
 require '../src/bootstrap.php';
 
 $articles = $cms->getArticle()->getAll(null, true, null, 6);
-var_dump($articles);
-exit;
 $navigation = $cms->getCategory()->fetchNavigation();
-var_dump($articles);
+
 
 $title = 'IT-News';
 $description = 'All about IT and New from Software Development and Hardware';

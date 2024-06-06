@@ -1,17 +1,7 @@
 <?php
-require '../includes/db-connect.php';
-require '../includes/functions.php';
+require '../src/bootstrap.php';
 
-$sql = "select a.id, a.title, a.summary, a.created, a.published, a.category_id, a.user_id, c.name as category,
-concat(u.forename, ' ', u.surname) as author,
-i.filename as image_file, i.alttext as image_alt
-from articles as a
-join category as c on a.category_id = c.id
-join user as u on a.user_id =u.id
-left join images as i on a.images_id=i.id
-order by a.id desc";
-
-$articles = pdo_execute($pdo, $sql)->fetchAll(PDO::FETCH_ASSOC);
+$articles = $cms->getArticle()->getAll();
 
 $navigation = [
     ['name' => 'Categories', 'url' => '../admin/categories.php'],
@@ -19,8 +9,8 @@ $navigation = [
 ];
 $section = '';
 
+include '../admin/header.php';
 ?>
-<?php include '../admin/header.php'; ?>
 <main class="container mx-auto flex justify-center flex-col items-center">
     <header class="p-10">
         <h1 class="text-4xl text-blue-500 mb-8">Articles</h1>

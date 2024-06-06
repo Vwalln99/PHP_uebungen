@@ -1,26 +1,22 @@
 <?php
-require '../includes/db-connect.php';
-require '../includes/functions.php';
-$navigation = [
-    ['name' => 'Categories', 'url' => '../admin/categories.php'],
-    ['name' => 'Articles', 'url' => '../admin/articles.php'],
-];
-$sql = 'select id, name, navigation from category';
-$categories = pdo_execute($pdo, $sql)->fetchAll(PDO::FETCH_ASSOC);
+require '../src/bootstrap.php';
+
+$categories = $cms->getCategory()->getAll();
+
 $section = '';
 
 $error = filter_input(INPUT_GET, 'error') ?? '';
 $success = filter_input(INPUT_GET, 'success') ?? '';
-?>
 
-<?php include '../admin/header.php'; ?>
+include '../admin/header.php';
+?>
 <main class="container mx-auto flex justify-center flex-col items-center">
     <header class="p-10">
         <?php if ($error) : ?>
-            <p class="error text-red-500 bg-red-200 p-5 roundd-md"><?= $error ?></p>
+            <p class="error text-red-500 bg-red-200 p-5 rounded-md"><?= $error ?></p>
         <?php endif; ?>
         <?php if ($success) : ?>
-            <p class="error text-green-500 bg-green-200 p-5 roundd-md"><?= $success ?></p>
+            <p class="error text-green-500 bg-green-200 p-5 rounded-md"><?= $success ?></p>
         <?php endif; ?>
         <h1 class="text-4xl text-blue-500 mb-8">Categories</h1>
         <button class="text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600"><a href="category.php">Add a new category</a></button>

@@ -1,43 +1,33 @@
 <?php
-require 'includes/db-connect.php';
-require 'includes/functions.php';
+require '../src/bootstrap.php';
 
-$cat_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$cat_id) {
+$user_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if (!$user_id) {
     include 'page_not_found.php';
+    exit;
 }
 
-$sql = "select forename, surname, joined, profile_pic from user where id = :id;";
-$user = pdo_execute($pdo, $sql, ["id" => $cat_id])->fetch(PDO::FETCH_ASSOC);
+$user = $cms->getUser()->fetch($user_id);
 if (!$user) {
     include 'page_not_found.php';
+    exit;
 }
-$sql =
-    "select a.id, a.title, a.summary, a.category_id, a.user_id, c.name as category,
-    concat(u.forename, ' ', u.surname) as author, i.filename as image_file, i.alttext as image_alt
-    from articles as a
-    join category as c on a.category_id=c.id
-    join user as u on a.user_id=u.id
-    left join images as i on a.images_id=i.id
-    where a.user_id=:id and a.published=1
-    order by a.id desc;
-    ";
-$articles = pdo_execute($pdo, $sql, ['id' => $cat_id])->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = "select id, name from category where navigation = 1;";
+$articles = $cms->getArticle()->getAll(null, true, $user_id);
 
-$navigation = pdo_execute($pdo, $sql)->fetchAll();
+$navigation = $cms->getCategory()->fetchNavigation();
 
 $title = $user['forename'] . ' ' . $user['surname'] . ' - IT-News';
 $description = $title;
 $section = '';
+
+include '../src/includes/header.php';
 ?>
-<?php include './includes/header.php'; ?>
 <main class="container mx-auto mt-10 mb-10">
     <section>
         <h1 class="text-3xl text-center"><?= e($user['forename']) ?> <?= e($user['surname']) ?></h1>
         <p class="text-center text-gray-500">Joined: <?= e(format_date($user['joined'])) ?></p>
-        <img class="mx-auto" src="uploads/<?= e($user['profile_pic'] ?? 'placeholder.jpg') ?>" alt="<?= e($article['image_file']) ?>">
+        <img class="mx-auto" src="uploads/<?= e($user['profile_pic'] ?? 'placeholder.jpg') ?>" alt="<?= e($user['forename']) ?>">
     </section>
     <section class="flex flex-wrap p-8">
         <?php foreach ($articles as $article) : ?>
@@ -58,4 +48,4 @@ $section = '';
         <?php endforeach; ?>
     </section>
 </main>
-<?php include './includes/footer.php'; ?>
+<?php include '../src/includes/footer.php'; ?>
