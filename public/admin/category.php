@@ -1,7 +1,6 @@
 <?php
-require '../includes/validate.php';
-require '../includes/db-connect.php';
-require '../includes/functions.php';
+require '../../src/bootstrap.php';
+
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? null;
 $errors = [
@@ -22,8 +21,7 @@ $navigation = [
 $section = '';
 
 if ($id) {
-    $sql = 'select id, name, description, navigation from category where id=:id';
-    $category = pdo_execute($pdo, $sql, ['id' => $id])->fetch();
+    $category = $cms->getCategory()->fetch($id);
 
     if (!$category) {
         redirect('categories.php', ['error' => 'category not found']);
@@ -35,30 +33,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category['description'] = filter_input(INPUT_POST, 'description');
     $category['navigation'] = filter_input(INPUT_POST, 'navigation', FILTER_VALIDATE_BOOLEAN);
 
-    $errors['name'] = is_text($category['name'], 1, 50) && (!empty($category['name'])) ? '' : 'Name must be between 1 and 50 characters';
-    $errors['description'] = is_text($category['description'], 1, 254) && (!empty($category['description'])) ? '' : 'Description must be between 1 and 254 characters';
+    $errors['name'] = Validate::is_text($category['name'], 1, 50) && (!empty($category['name'])) ? ''
+        : 'Name must be between 1 and 50 characters';
+    $errors['description'] = Validate::is_text($category['description'], 1, 254) && (!empty($category['description'])) ? ''
+        : 'Description must be between 1 and 254 characters';
 
-    $problems = implode(array_filter($errors));
+    $problems = implode($errors);
 
     if (!$problems) {
-        $sql = "insert into category (name, description, navigation) values (:name, :description, :navigation)";
-        if ($id) {
-            $sql = "update category set name = :name, description= :description, navigation = :navigation where id = :id";
-        }
         $bindings = [
             'name' => $category['name'],
             'description' => $category['description'],
             'navigation' => $category['navigation']
         ];
-        if ($id) {
-            $bindings['id'] = $id;
-        }
-
         try {
-            pdo_execute($pdo, $sql, $bindings);
-            redirect('categories.php', ['success' => 'category sucessfully saved']);
+            if ($id) {
+                $bindings['id'] = $id;
+                $cms->getCategory()->update($bindings);
+                redirect('categories.php', ['success' => 'category successfully saved']);
+            } else {
+                $cms->getCategory()->push($bindings);
+                redirect('categories.php', ['success' => 'category successfully saved']);
+            }
         } catch (PDOException $e) {
-            $errors['issue'] = 'There was an issue saving the category';
+            $errors['issue'] = 'Name already in use';
         }
     } else {
         $errors['issue'] = 'Please correct the following issues: ' . $problems;
