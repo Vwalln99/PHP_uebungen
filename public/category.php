@@ -8,21 +8,16 @@ if (!$cat_id) {
 
 $category = $cms->getCategory()->fetch($cat_id);
 if (!$category) {
-    include APP_ROOT . "page_not_found.php";
+    include APP_ROOT . "public/page_not_found.php";
 }
-$articles = $cms->getArticle()->getAll($cat_id);
-if (!$articles) {
-    echo ('No articles found.');
-}
-
-
+$articles    = $cms->getArticle()->getAll($cat_id);
 $navigation = $cms->getCategory()->fetchNavigation();
 
 $title = $category['name'];
 $description = $category['description'];
 $section = $cat_id;
 ?>
-<?php include '../src/includes/header.php'; ?>
+<?php include './includes/header.php'; ?>
 <aside class="flex, justify-center items-center flex-col p-8">
     <h1 class="text-4xl text-blue-500 mb-8"><?= e($category['name']) ?></h1>
     <p class="text-gray-500"><?= e($category['description']) ?></p>
@@ -45,4 +40,4 @@ $section = $cat_id;
         </article>
     <?php endforeach; ?>
 </main>
-<?php include '../src/includes/footer.php'; ?>
+<?php include './includes/footer.php'; ?>

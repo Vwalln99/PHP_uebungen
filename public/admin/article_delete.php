@@ -1,63 +1,45 @@
 <?php
-require '../includes/validate.php';
-require '../includes/db-connect.php';
-require '../includes/functions.php';
-
+require '../../src/bootstrap.php';
 $navigation = [
     ['name' => 'Categories', 'url' => '../admin/categories.php'],
     ['name' => 'Articles', 'url' => '../admin/articles.php'],
 ];
-$section = '';
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$id) {
-    redirect('articles.php', ['error' => 'Invalid article ID']);
+    redirect('articles.php', ['error' => 'Article not found (id)']);
 }
 
-$confirm = filter_input(INPUT_POST, 'confirm');
+$sql     = "SELECT a.title, a.images_id, i.filename FROM articles a LEFT JOIN images i ON a.images_id = i.id WHERE a.id = :id";
+$article = $cms->getArticle()->fetch($id);
+if (!$article) {
+    redirect('articles.php', ['error' => 'Article not found']);
+}
 
-if ($confirm === 'yes') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        $pdo->beginTransaction();
-
-        $sql = 'select images_id from articles where id=:id';
-        $stmt = pdo_execute($pdo, $sql, ['id' => $id]);
-        $article = $stmt->fetch();
-
-        if ($article) {
-            $imageId = $article['images_id'];
-
-            $sql = 'update articles set images_id = null where id=:id';
-            pdo_execute($pdo, $sql, ['id' => $id]);
-
-            if ($imagePath && file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-
-            $sql = 'delete from articles where id = :id';
-            pdo_execute($pdo, $sql, ['id' => $id]);
-            $pdo->commit();
-
-            redirect('articles.php', ['success' => 'Article successfully deleted']);
-        } else {
-            echo ('Article not found');
+        if ($article['images_id']) {
+            $sql = "UPDATE articles SET images_id = NULL WHERE id = :id";
+            $cms->getArticle()->update($id);
+            $sql = "DELETE FROM images WHERE id = :id";
+            $cms->getImage()->delete($article['images_id']);
+            unlink(UPLOAD_DIR . $article['filename']);
         }
-    } catch (Exception $e) {
-        $pdo->rollBack();
-        $error = 'An error occurred while deleting the article: ' . $e->getMessage();
-        redirect('articles.php', ['error' => $error]);
+        $cms->getArticle()->delete($id);
+        redirect('articles.php', ['success' => 'Article deleted']);
+    } catch (PDOException $e) {
+        redirect('articles.php', ['error' => 'Article could not be deleted']);
     }
 }
+
 ?>
-<?php include '../admin/header.php'; ?>
-<main class="container w-auto mx-auto md:w-1/2 flex justify-center flex-col items-center p-5">
-    <h2 class="text-3xl text-blue-500 mb-8">Delete Article</h2>
-    <p class="text-lg mb-4">You sure you want to delete this article?</p>
-    <form method="POST" action="article_delete.php?id=<?= $id ?>">
-        <div class="flex space-x-4">
-            <button type="submit" name="confirm" value="yes" class="text-white bg-blue-500 p-3 rounded-md hover:bg-red-600">Yes</button>
-            <a href="articles.php" class="text-white bg-pink-600 p-3 rounded-md hover:bg-gray-600">No</a>
-        </div>
+<?php include '../includes/.php' ?>
+<main class="container mx-auto p-10 flex flex-col items-center">
+    <form method="post" action="article_delete.php?id=<?= $id ?>">
+        <input type="hidden" name="id" value="<?= $id ?>">
+        <p class="text-blue-600 text-2xl mb-4">You sure you want to delete this article?</p>
+        <button type="submit" class="bg-pink-600 text-white p-3 rounded-md w-1/3">Yes</button>
+        <button type="submit" formaction="articles.php" class="bg-blue-500 text-white p-3 rounded-md w-1/3">No</button>
     </form>
 </main>
-<?php include '../admin/footer.php'; ?>
+<?php include '../includes/footer.php' ?>

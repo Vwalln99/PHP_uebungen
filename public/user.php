@@ -1,27 +1,22 @@
 <?php
 require '../src/bootstrap.php';
 
-$user_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$user_id) {
-    include 'page_not_found.php';
-    exit;
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if (!$id) {
+    include APP_ROOT . '/public/page_not_found.php';
 }
 
-$user = $cms->getUser()->fetch($user_id);
+$user = $cms->getUser()->fetch($id);
 if (!$user) {
-    include 'page_not_found.php';
-    exit;
+    include APP_ROOT . '/public/page_not_found.php';
 }
-
-$articles = $cms->getArticle()->getAll(null, true, $user_id);
-
-$navigation = $cms->getCategory()->fetchNavigation();
-
-$title = $user['forename'] . ' ' . $user['surname'] . ' - IT-News';
+$articles    = $cms->getArticle()->getAll(null, true, $id);
+$navigation  = $cms->getCategory()->fetchNavigation();
+$title       = $user['forename'] . ' ' . $user['surname'] . ' - IT-News';
 $description = $title;
-$section = '';
-
-include '../src/includes/header.php';
+$section     = '';
+?>
+<?php include './includes/header.php';
 ?>
 <main class="container mx-auto mt-10 mb-10">
     <section>
@@ -33,7 +28,7 @@ include '../src/includes/header.php';
         <?php foreach ($articles as $article) : ?>
             <article class="w-full p-4 flex justify-between flex-col sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4">
                 <a href="article.php?id=<?= $article['id'] ?>">
-                    <img src="uploads/<?= e($article['image_file'] ?? 'blank.png') ?>" alt="<?= e($article['image_file']) ?>">
+                    <img src="./uploads/<?= e($article['image_file'] ?? 'blank.png') ?>" alt="<?= e($article['image_file']) ?>">
                     <h2 class="text-blue-500 text-2xl pt-3 pb-1.5"><?= e($article['title']) ?></h2>
                     <p class="text-gray-500 pb-2.5"><?= e($article['summary']) ?></p>
                 </a>
@@ -48,4 +43,4 @@ include '../src/includes/header.php';
         <?php endforeach; ?>
     </section>
 </main>
-<?php include '../src/includes/footer.php'; ?>
+<?php include './includes/footer.php'; ?>

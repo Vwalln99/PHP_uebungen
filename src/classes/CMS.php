@@ -7,6 +7,8 @@ class CMS
     protected Category $category;
     protected User $user;
 
+    protected Image $image;
+
     public function __construct(string $dsn, string $user_name, string $password)
     {
         $this->db = new Database($dsn, $user_name, $password);
@@ -32,5 +34,14 @@ class CMS
             $this->user = new User($this->db);
         }
         return $this->user;
+    }
+
+    public function getImage(): Image
+    {
+        if (!isset($this->image)) {
+            $this->image = new Image($this->db);
+        }
+
+        return $this->image;
     }
 }

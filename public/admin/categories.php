@@ -1,5 +1,5 @@
 <?php
-require '../src/bootstrap.php';
+require '../../src/bootstrap.php';
 
 $categories = $cms->getCategory()->getAll();
 
@@ -7,6 +7,11 @@ $section = '';
 
 $error = filter_input(INPUT_GET, 'error') ?? '';
 $success = filter_input(INPUT_GET, 'success') ?? '';
+
+$navigation = [
+    ['name' => 'Categories', 'url' => '../admin/categories.php'],
+    ['name' => 'Articles', 'url' => '../admin/articles.php'],
+];
 
 include '../admin/header.php';
 ?>

@@ -1,18 +1,11 @@
 <?php
-require 'includes/db-connect.php';
-require 'includes/functions.php';
+require '../src/bootstrap.php';
 
-
-$cat_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$cat_id) {
-    include 'page_not_found.php';
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if (!$id) {
+    include APP_ROOT . 'public/page_not_found.php';
 }
 
-$sql = "select id, name, description from category where id = :id;";
-$category = pdo_execute($pdo, $sql, ["id" => $cat_id])->fetch(PDO::FETCH_ASSOC);
-if (!$category) {
-    include 'page_not_found.php';
-}
 $sql =
     "select a.title, a.summary, a.content, a.created, a.category_id, a.user_id, c.name as category,
     concat(u.forename, ' ', u.surname) as author, i.filename as image_file, i.alttext as image_alt
@@ -22,14 +15,14 @@ $sql =
     left join images as i on a.images_id=i.id
     where a.id=:id and a.published=1;
     ";
-$article = pdo_execute($pdo, $sql, ['id' => $cat_id])->fetch();
+$article = $cms->getArticle()->fetch($id);
 if (!$article) {
-    include 'page_not_found.php';
+    include APP_ROOT . '/public/page_not_found.php';
 }
 
 $sql = "select id, name from category where navigation = 1;";
 
-$navigation = pdo_execute($pdo, $sql)->fetchAll();
+$navigation  = $cms->getCategory()->fetchNavigation();
 
 $title = $article['title'];
 $description = $article['summary'];
@@ -38,7 +31,7 @@ $section = $article['category_id'];
 <?php include './includes/header.php'; ?>
 <main class="flex flex-wrap container mx-auto">
     <section>
-        <img src="uploads/<?= e($article['image_file'] ?? 'placeholder.png') ?>" alt="<?= e($article['image_file']) ?>">
+        <img src="./uploads/<?= e($article['image_file'] ?? 'placeholder.png') ?>" alt="<?= e($article['image_file']) ?>">
     </section>
     <section>
         <h1 class="text-4xl text-blue-500 mb-4 mt-8"><?= e($article['title']) ?></h1>
