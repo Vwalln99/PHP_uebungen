@@ -7,6 +7,7 @@
     <title><?= e($title ?? '') ?></title>
     <meta name="description" content="<?= e($description ?? '') ?>">
     <link rel="stylesheet" type="text/css" href="./css/output.css">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce/min.js" referrerpolicy="origin"></script>
 </head>
 
 <body>

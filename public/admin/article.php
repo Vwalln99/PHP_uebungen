@@ -1,6 +1,8 @@
 <?php
 require '../../src/bootstrap.php';
 
+use EdvGraz\Validation\Validate;
+
 $navigation = [
     ['name' => 'Categories', 'url' => '../admin/categories.php'],
     ['name' => 'Articles', 'url' => '../admin/articles.php'],
@@ -41,6 +43,7 @@ if ($id) {
 }
 $categories = $cms->getCategory()->getAll();
 $users      = $cms->getUser()->getAll();
+$section = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image_file'])) {
@@ -68,6 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $article['user_id']     = filter_input(INPUT_POST, 'user', FILTER_VALIDATE_INT);
     $article['category_id'] = filter_input(INPUT_POST, 'category', FILTER_VALIDATE_INT);
     $article['published']   = filter_input(INPUT_POST, 'published', FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
+    $purifier = new HTMLPurifier();
+    $purifier->config->set('HTML.Allowed', 'p,br,strong,em,a[href],i,u,ul,ol,li,img[src|alt]');
+    $article['content'] = $purifier->purify($article['content']);
     $errors['title']    = Validate::is_text($article['title']) ? '' : 'Title must be between 1 and 100 characters';
     $errors['summary']  = Validate::is_text($article['summary'], 1, 200) ? '' : 'Summary must be between 1 and 200 characters';
     $errors['content']  = Validate::is_text($article['content'], 1, 10000) ? '' : 'Content must be between 1 and 10.000 characters';
@@ -99,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
-<?php include '../includes/header.php'; ?>
+<?php include '../admin/header.php'; ?>
 <main class="p-10">
     <h2 class="text-3xl text-blue-500 mb-8 text-center"><?= $article['id'] ? 'Edit ' : 'New ' ?>Article</h2>
     <?php if ($errors['issue']) : ?>
@@ -114,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <textarea id="summary" name="summary" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= e($article['summary']) ?></textarea>
             <span class="text-red-500"><?= $errors['summary'] ?></span>
             <label class="block mb-2 text-sm font-medium text-gray-900 pt-2" for="content">Content</label>
-            <textarea id="content" rows="10" name="content" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= e($article['content']) ?></textarea>
+            <textarea id="content" rows="10" name="content" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $article['content'] ?></textarea>
             <span class="text-red-500"><?= $errors['content'] ?></span>
         </div>
         <div>
@@ -153,6 +159,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <button type="submit" class="text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600">Save</button>
     </form>
+    <script>
+        tinymce.init({
+            selector: '#content',
+            menubar: false,
+            toolbar: "bold italic underline link",
+            pluins: 'link',
+            link_title: false
+        })
+    </script>
 </main>
 
-<?php include '../includes/footer.php'; ?>
+
+
+<?php include '../admin/footer.php'; ?>
