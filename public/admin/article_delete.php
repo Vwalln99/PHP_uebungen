@@ -1,45 +1,36 @@
 <?php
 require '../../src/bootstrap.php';
-$navigation = [
+
+$data['navigation'] = [
     ['name' => 'Categories', 'url' => '../admin/categories.php'],
     ['name' => 'Articles', 'url' => '../admin/articles.php'],
 ];
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$id) {
-    redirect('articles.php', ['error' => 'Article not found (id)']);
+$data['id'] = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if (!$data['id']) {
+    redirect('admin/articles.php', ['error' => 'Article not found (id)']);
 }
 
-$sql     = "SELECT a.title, a.images_id, i.filename FROM articles a LEFT JOIN images i ON a.images_id = i.id WHERE a.id = :id";
-$article = $cms->getArticle()->fetch($id);
-if (!$article) {
-    redirect('articles.php', ['error' => 'Article not found']);
+$sql = "SELECT a.title, a.images_id, i.filename FROM articles a LEFT JOIN images i ON a.images_id = i.id WHERE a.id = :id";
+$data['article'] = $cms->getArticle()->fetch($data['id']);
+if (!$data['article']) {
+    redirect('admin/articles.php', ['error' => 'Article not found']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        if ($article['images_id']) {
+        if ($data['article']['images_id']) {
             $sql = "UPDATE articles SET images_id = NULL WHERE id = :id";
-            $cms->getArticle()->update($id);
+            $cms->getArticle()->update($data['id']);
             $sql = "DELETE FROM images WHERE id = :id";
-            $cms->getImage()->delete($article['images_id']);
-            unlink(UPLOAD_DIR . $article['filename']);
+            $cms->getImage()->delete($data['article']['images_id']);
+            unlink(UPLOAD_DIR . $data['article']['filename']);
         }
-        $cms->getArticle()->delete($id);
-        redirect('articles.php', ['success' => 'Article deleted']);
+        $cms->getArticle()->delete($data['id']);
+        redirect('admin/articles.php', ['success' => 'Article deleted']);
     } catch (PDOException $e) {
-        redirect('articles.php', ['error' => 'Article could not be deleted']);
+        redirect('admin/articles.php', ['error' => 'Article could not be deleted']);
     }
 }
 
-?>
-<?php include '../includes/.php' ?>
-<main class="container mx-auto p-10 flex flex-col items-center">
-    <form method="post" action="article_delete.php?id=<?= $id ?>">
-        <input type="hidden" name="id" value="<?= $id ?>">
-        <p class="text-blue-600 text-2xl mb-4">You sure you want to delete this article?</p>
-        <button type="submit" class="bg-pink-600 text-white p-3 rounded-md w-1/3">Yes</button>
-        <button type="submit" formaction="articles.php" class="bg-blue-500 text-white p-3 rounded-md w-1/3">No</button>
-    </form>
-</main>
-<?php include '../includes/footer.php' ?>
+echo $twig->render('admin/article_delete.html', $data);

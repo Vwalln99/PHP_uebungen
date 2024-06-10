@@ -85,7 +85,7 @@ class Article
 								i.filename AS image_file,
 								i.alttext AS image_alt
 								FROM articles AS a
-								JOIN cms_edvgraz.category c on a.category_id = c.id
+								JOIN cms_graz.category c on a.category_id = c.id
 								JOIN user as u on a.user_id = u.id
 								LEFT JOIN images as i on a.images_id = i.id
 								WHERE a.published = 1 AND (a.title LIKE :search OR a.summary LIKE :search OR a.content LIKE :search)
