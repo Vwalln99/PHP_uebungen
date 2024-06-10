@@ -80,7 +80,7 @@ class __TwigTemplate_28c7fb2ae58a0c16303cf50382804675 extends Template
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["id"] ?? null), "html", null, true);
         yield "\">
         <p class=\"text-blue-600 text-2xl mb-4\">You sure you want to delete this article?</p>
-        <button type=\"submit\" formaction=\"articles.php\" class=\"bg-pink-600 text-white p-3 rounded-md w-1/3\">Yes</button>
+        <button type=\"submit\" class=\"bg-pink-600 text-white p-3 rounded-md w-1/3\">Yes</button>
         <button type=\"submit\" formaction=\"articles.php\" class=\"bg-blue-500 text-white p-3 rounded-md w-1/3\">No</button>
     </form>
 </main>
@@ -122,7 +122,7 @@ class __TwigTemplate_28c7fb2ae58a0c16303cf50382804675 extends Template
     <form method=\"post\" action=\"{{doc_root}}admin/article_delete.php?id={{id}}\">
         <input type=\"hidden\" name=\"id\" value=\"{{id}}\">
         <p class=\"text-blue-600 text-2xl mb-4\">You sure you want to delete this article?</p>
-        <button type=\"submit\" formaction=\"articles.php\" class=\"bg-pink-600 text-white p-3 rounded-md w-1/3\">Yes</button>
+        <button type=\"submit\" class=\"bg-pink-600 text-white p-3 rounded-md w-1/3\">Yes</button>
         <button type=\"submit\" formaction=\"articles.php\" class=\"bg-blue-500 text-white p-3 rounded-md w-1/3\">No</button>
     </form>
 </main>

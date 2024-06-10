@@ -27,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             unlink(UPLOAD_DIR . $data['article']['filename']);
         }
         $cms->getArticle()->delete($data['id']);
-        redirect('admin/articles.php', ['success' => 'Article deleted']);
+        redirect('articles.php', ['success' => 'Article deleted']);
     } catch (PDOException $e) {
-        redirect('admin/articles.php', ['error' => 'Article could not be deleted']);
+        redirect('articles.php', ['error' => 'Article could not be deleted']);
     }
 }
 
