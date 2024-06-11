@@ -25,7 +25,7 @@ if ($data['id']) {
     $data['category'] = $cms->getCategory()->fetch($data['id']);
 
     if (!$data['category']) {
-        redirect('categories.php', ['error' => 'category not found']);
+        redirect('categories.php', ['error' => 'Category not found']);
     }
 }
 
@@ -48,13 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'navigation' => $category['navigation']
         ];
         try {
-            if ($id) {
-                $bindings['id'] = $id;
+            if ($data['id']) {
+                $bindings['id'] = $data['id'];
                 $cms->getCategory()->update($bindings);
-                redirect('categories.php', ['success' => 'category successfully saved']);
+                redirect('categories.php', ['success' => 'Category successfully updated']);
             } else {
                 $cms->getCategory()->push($bindings);
-                redirect('categories.php', ['success' => 'category successfully saved']);
+                redirect('categories.php', ['success' => 'Category successfully saved']);
             }
         } catch (PDOException $e) {
             $errors['issue'] = 'Name already in use';
@@ -63,6 +63,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['issue'] = 'Please correct the following issues: ' . $problems;
     }
 }
-
 
 echo $twig->render('admin/category.html', $data);

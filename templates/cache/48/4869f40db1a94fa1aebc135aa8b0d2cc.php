@@ -35,13 +35,13 @@ class __TwigTemplate_1e491a2aeae8e70ea2161fe88b81fdd4 extends Template
     protected function doGetParent(array $context)
     {
         // line 1
-        return "layout.html";
+        return "admin/layout.html";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("layout.html", "admin/category_delete.html", 1);
+        $this->parent = $this->loadTemplate("admin/layout.html", "admin/category_delete.html", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
     }
 
@@ -72,7 +72,7 @@ class __TwigTemplate_1e491a2aeae8e70ea2161fe88b81fdd4 extends Template
     <form method=\"post\" action=\"";
         // line 6
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-        yield "category_delete.php?id=";
+        yield "/admin/category_delete.php?id=";
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["id"] ?? null), "html", null, true);
         yield "\">
         <input type=\"hidden\" name=\"id\" value=\"";
@@ -84,7 +84,7 @@ class __TwigTemplate_1e491a2aeae8e70ea2161fe88b81fdd4 extends Template
         <button type=\"submit\" formaction=\"";
         // line 10
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-        yield "categories.php\" class=\"bg-blue-500 text-white p-3 rounded-md w-1/3\">No</button>
+        yield "admin/categories.php\" class=\"bg-blue-500 text-white p-3 rounded-md w-1/3\">No</button>
     </form>
 </main>
 ";
@@ -117,16 +117,16 @@ class __TwigTemplate_1e491a2aeae8e70ea2161fe88b81fdd4 extends Template
 
     public function getSourceContext()
     {
-        return new Source("{%extends 'layout.html'%}
+        return new Source("{%extends 'admin/layout.html'%}
 {% block title %} {{ title }}{% endblock %}
 {% block description %} {{ description }}{% endblock %}
 {%block content%}
 <main class=\"container mx-auto p-10 flex flex-col items-center\">
-    <form method=\"post\" action=\"{{doc_root}}category_delete.php?id={{id}}\">
+    <form method=\"post\" action=\"{{doc_root}}/admin/category_delete.php?id={{id}}\">
         <input type=\"hidden\" name=\"id\" value=\"{{id}}\">
         <p class=\"text-blue-600 text-2xl mb-4\">You sure you want to delete this category?</p>
         <button type=\"submit\" class=\"bg-pink-600 text-white p-3 rounded-md w-1/3\">Yes</button>
-        <button type=\"submit\" formaction=\"{{doc_root}}categories.php\" class=\"bg-blue-500 text-white p-3 rounded-md w-1/3\">No</button>
+        <button type=\"submit\" formaction=\"{{doc_root}}admin/categories.php\" class=\"bg-blue-500 text-white p-3 rounded-md w-1/3\">No</button>
     </form>
 </main>
 {%endblock%}", "admin/category_delete.html", "C:\\xampp\\htdocs\\templates\\admin\\category_delete.html");

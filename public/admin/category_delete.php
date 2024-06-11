@@ -20,11 +20,12 @@ if (!$data['category']) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        $categoryName = $data['category']['name'];
         $cms->getCategory()->delete($data['id']);
         redirect('categories.php', ['success' => 'Category deleted']);
     } catch (PDOException $e) {
         if ($e->errorInfo[1] === 1451) {
-            redirect('categories.php', ['error' => 'Category ' . $category['name'] . ' can not be removed, there are Articles in the Category']);
+            redirect('categories.php', ['error' => 'Category ' . $categoryName . ' can not be removed, there are Articles in the Category']);
         }
     }
 }

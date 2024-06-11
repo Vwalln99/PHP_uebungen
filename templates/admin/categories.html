@@ -1,4 +1,4 @@
-{%extends 'layout.html'%}
+{%extends 'admin/layout.html'%}
 {% block title %} {{ title }}{% endblock %}
 {% block description %} {{ description }}{% endblock %}
 {%block content%}
@@ -8,7 +8,7 @@
             <p class="error text-red-500 bg-red-200 p-5 rounded-md">{{error}}</p>
         {%endif%}
         {%if success%}
-            <p class="error text-green-500 bg-green-200 p-5 rounded-md">{{sucess}}</p>
+            <p class="error text-green-500 bg-green-200 p-5 rounded-md">{{success}}</p>
         {%endif%}
         <h1 class="text-4xl text-blue-500 mb-8">Categories</h1>
         <button class="text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600"><a href="category.php">Add a new category</a></button>

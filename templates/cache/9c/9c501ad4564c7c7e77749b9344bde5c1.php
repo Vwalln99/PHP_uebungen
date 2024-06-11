@@ -35,13 +35,13 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
     protected function doGetParent(array $context)
     {
         // line 1
-        return "layout.html";
+        return "admin/layout.html";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("layout.html", "admin/categories.html", 1);
+        $this->parent = $this->loadTemplate("admin/layout.html", "admin/categories.html", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
     }
 
@@ -84,7 +84,7 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
         if (($context["success"] ?? null)) {
             // line 11
             yield "            <p class=\"error text-green-500 bg-green-200 p-5 rounded-md\">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["sucess"] ?? null), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["success"] ?? null), "html", null, true);
             yield "</p>
         ";
         }
@@ -160,7 +160,7 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
 
     public function getSourceContext()
     {
-        return new Source("{%extends 'layout.html'%}
+        return new Source("{%extends 'admin/layout.html'%}
 {% block title %} {{ title }}{% endblock %}
 {% block description %} {{ description }}{% endblock %}
 {%block content%}
@@ -170,7 +170,7 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
             <p class=\"error text-red-500 bg-red-200 p-5 rounded-md\">{{error}}</p>
         {%endif%}
         {%if success%}
-            <p class=\"error text-green-500 bg-green-200 p-5 rounded-md\">{{sucess}}</p>
+            <p class=\"error text-green-500 bg-green-200 p-5 rounded-md\">{{success}}</p>
         {%endif%}
         <h1 class=\"text-4xl text-blue-500 mb-8\">Categories</h1>
         <button class=\"text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600\"><a href=\"category.php\">Add a new category</a></button>

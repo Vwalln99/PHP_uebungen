@@ -35,13 +35,13 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
     protected function doGetParent(array $context)
     {
         // line 1
-        return "layout.html";
+        return "admin/layout.html";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("layout.html", "admin/article.html", 1);
+        $this->parent = $this->loadTemplate("admin/layout.html", "admin/article.html", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
     }
 
@@ -118,53 +118,53 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
         <div>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"category\">Category</label>
             <select id=\"category\" name=\"category\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500\">
-                <option>select category</option>
+                <option value=\"\">Select category</option>
                 ";
         // line 26
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(($context["category"] ?? null));
-        foreach ($context['_seq'] as $context["_key"] => $context["categories"]) {
+        $context['_seq'] = CoreExtension::ensureTraversable(($context["categories"] ?? null));
+        foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
             // line 27
             yield "                    <option value=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["category"] ?? null), "id", [], "any", false, false, false, 27), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 27), "html", null, true);
             yield "\" ";
-            yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["category"] ?? null), "id", [], "any", false, false, false, 27) == CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "category_id", [], "any", false, false, false, 27))) ? ("selected") : (""));
+            yield (((CoreExtension::getAttribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 27) == CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "category_id", [], "any", false, false, false, 27))) ? ("selected") : (""));
             yield ">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["category"] ?? null), "name", [], "any", false, false, false, 27), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["category"], "name", [], "any", false, false, false, 27), "html", null, true);
             yield "</option>
                 ";
         }
         $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['categories'], $context['_parent'], $context['loop']);
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['category'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 29
         yield "            </select>
             <span class=\"text-red-500\">";
         // line 30
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["errors"] ?? null), "category", [], "any", false, false, false, 30), "html", null, true);
-        yield "></span>
+        yield "</span>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"user_id\">User</label>
             <select id=\"user_id\" name=\"user\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500\">
-                <option>select user</option>
+                <option value=\"\">Select user</option>
                 ";
         // line 34
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(($context["user"] ?? null));
-        foreach ($context['_seq'] as $context["_key"] => $context["users"]) {
+        $context['_seq'] = CoreExtension::ensureTraversable(($context["users"] ?? null));
+        foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
             // line 35
-            yield "                <option value=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["user"] ?? null), "id", [], "any", false, false, false, 35), "html", null, true);
+            yield "                    <option value=\"";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 35), "html", null, true);
             yield "\" ";
-            yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["user"] ?? null), "id", [], "any", false, false, false, 35) == CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "user_id", [], "any", false, false, false, 35))) ? ("selected") : (""));
+            yield (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 35) == CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "user_id", [], "any", false, false, false, 35))) ? ("selected") : (""));
             yield ">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["user"] ?? null), "forename", [], "any", false, false, false, 35), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "forename", [], "any", false, false, false, 35), "html", null, true);
             yield " ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["user"] ?? null), "surname", [], "any", false, false, false, 35), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "surname", [], "any", false, false, false, 35), "html", null, true);
             yield "</option>
-               ";
+                ";
         }
         $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['users'], $context['_parent'], $context['loop']);
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 37
         yield "            </select>
@@ -176,16 +176,18 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
         // line 39
         if ( !CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "image_file", [], "any", false, false, false, 39)) {
             // line 40
-            yield "                <label class=\"block mb-2 text-sm font-medium text-gray-900\" for=\"image_file pt-2\">Image</label>
+            yield "                <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"image_file\">Image</label>
                 <input type=\"file\" id=\"image_file\" accept=\"image/jpeg, image/png\" name=\"image_file\" class=\"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5\">
                 <span class=\"text-red-500\">";
             // line 42
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["errors"] ?? null), "image_file", [], "any", false, false, false, 42), "html", null, true);
             yield "</span>
-                ";
+            ";
         } else {
             // line 44
-            yield "                <img src=\"../uploads/";
+            yield "                <img src=\"";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
+            yield "uploads/";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "image_file", [], "any", false, false, false, 44), "html", null, true);
             yield "\" alt=\"";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "image_alt", [], "any", false, false, false, 44), "html", null, true);
@@ -205,21 +207,20 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
             ";
         }
         // line 49
-        yield "
-            <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"image_alt\">Image Alt</label>
+        yield "            <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"image_alt\">Image Alt</label>
             <input type=\"text\" id=\"image_alt\" name=\"image_alt\" value=\"";
-        // line 51
-        yield ((CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "image_alt", [], "any", false, false, false, 51)) ? ("") : (""));
+        // line 50
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "image_alt", [], "any", false, false, false, 50), "html", null, true);
         yield "\" class=\"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5\">
             <span class=\"text-red-500\">";
-        // line 52
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["errors"] ?? null), "image_alt", [], "any", false, false, false, 52), "html", null, true);
+        // line 51
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["errors"] ?? null), "image_alt", [], "any", false, false, false, 51), "html", null, true);
         yield "</span>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"published\">Published</label>
             <input type=\"checkbox\" id=\"published\" name=\"published\" ";
-        // line 54
-        yield ((CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "published", [], "any", false, false, false, 54)) ? ("checked") : (""));
-        yield " class=\"w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600\">
+        // line 53
+        yield ((CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "published", [], "any", false, false, false, 53)) ? ("checked") : (""));
+        yield " class=\"w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500\">
         </div>
         <button type=\"submit\" class=\"text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600\">Save</button>
     </form>
@@ -228,9 +229,9 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
             selector: '#content',
             menubar: false,
             toolbar: \"bold italic underline link\",
-            pluins: 'link',
+            plugins: 'link',
             link_title: false
-        })
+        });
     </script>
 </main>
 ";
@@ -258,65 +259,64 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  221 => 54,  216 => 52,  212 => 51,  208 => 49,  203 => 47,  199 => 46,  195 => 45,  188 => 44,  183 => 42,  179 => 40,  177 => 39,  173 => 38,  170 => 37,  155 => 35,  151 => 34,  144 => 30,  141 => 29,  128 => 27,  124 => 26,  115 => 20,  111 => 19,  106 => 17,  102 => 16,  97 => 14,  93 => 13,  86 => 10,  80 => 8,  78 => 7,  74 => 6,  71 => 5,  67 => 4,  58 => 3,  49 => 2,  38 => 1,);
+        return array (  222 => 53,  217 => 51,  213 => 50,  210 => 49,  205 => 47,  201 => 46,  197 => 45,  188 => 44,  183 => 42,  179 => 40,  177 => 39,  173 => 38,  170 => 37,  155 => 35,  151 => 34,  144 => 30,  141 => 29,  128 => 27,  124 => 26,  115 => 20,  111 => 19,  106 => 17,  102 => 16,  97 => 14,  93 => 13,  86 => 10,  80 => 8,  78 => 7,  74 => 6,  71 => 5,  67 => 4,  58 => 3,  49 => 2,  38 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("{%extends 'layout.html'%}
+        return new Source("{% extends 'admin/layout.html' %}
 {% block title %} {{ title }}{% endblock %}
 {% block description %} {{ description }}{% endblock %}
-{%block content%}
+{% block content %}
 <main class=\"p-10\">
-    <h2 class=\"text-3xl text-blue-500 mb-8 text-center\">{{article.id ? 'Edit ' : 'New ' }}Article</h2>
-    {% if errors.issue%}
-        <p class=\"error text-red-500 bg-red-200 p-5 rounded-md\">{{errors.issue}}</p>
+    <h2 class=\"text-3xl text-blue-500 mb-8 text-center\">{{ article.id ? 'Edit ' : 'New ' }}Article</h2>
+    {% if errors.issue %}
+        <p class=\"error text-red-500 bg-red-200 p-5 rounded-md\">{{ errors.issue }}</p>
     {% endif %}
-    <form action=\"article.php?id={{article.id}}\" method=\"POST\" enctype=\"multipart/form-data\" class=\"grid gap-6 mb-6 md:grid-cols-2 md:w-full\">
+    <form action=\"article.php?id={{ article.id }}\" method=\"POST\" enctype=\"multipart/form-data\" class=\"grid gap-6 mb-6 md:grid-cols-2 md:w-full\">
         <div>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"title\">Title</label>
-            <input type=\"text\" id=\"title\" name=\"title\" value=\"{{article.title}}\" class=\"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5\">
-            <span class=\"text-red-500\">{{errors.title}}</span>
+            <input type=\"text\" id=\"title\" name=\"title\" value=\"{{ article.title }}\" class=\"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5\">
+            <span class=\"text-red-500\">{{ errors.title }}</span>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"summary\">Summary</label>
-            <textarea id=\"summary\" name=\"summary\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500\">{{article.summary}}</textarea>
-            <span class=\"text-red-500\">{{errors.summary}}</span>
+            <textarea id=\"summary\" name=\"summary\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500\">{{ article.summary }}</textarea>
+            <span class=\"text-red-500\">{{ errors.summary }}</span>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"content\">Content</label>
-            <textarea id=\"content\" rows=\"10\" name=\"content\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500\">{{article.content}}</textarea>
-            <span class=\"text-red-500\">{{errors.content}}</span>
+            <textarea id=\"content\" rows=\"10\" name=\"content\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500\">{{ article.content }}</textarea>
+            <span class=\"text-red-500\">{{ errors.content }}</span>
         </div>
         <div>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"category\">Category</label>
             <select id=\"category\" name=\"category\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500\">
-                <option>select category</option>
-                {%for categories in category %}
-                    <option value=\"{{category.id}}\" {{ category.id == article.category_id ? 'selected' : '' }}>{{category.name}}</option>
-                {%endfor%}
+                <option value=\"\">Select category</option>
+                {% for category in categories %}
+                    <option value=\"{{ category.id }}\" {{ category.id == article.category_id ? 'selected' : '' }}>{{ category.name }}</option>
+                {% endfor %}
             </select>
-            <span class=\"text-red-500\">{{errors.category}}></span>
+            <span class=\"text-red-500\">{{ errors.category }}</span>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"user_id\">User</label>
             <select id=\"user_id\" name=\"user\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500\">
-                <option>select user</option>
-                {%for users in user%}
-                <option value=\"{{ user.id }}\" {{ user.id == article.user_id ? 'selected' : '' }}>{{ user.forename }} {{ user.surname }}</option>
-               {%endfor%}
+                <option value=\"\">Select user</option>
+                {% for user in users %}
+                    <option value=\"{{ user.id }}\" {{ user.id == article.user_id ? 'selected' : '' }}>{{ user.forename }} {{ user.surname }}</option>
+                {% endfor %}
             </select>
-            <span class=\"text-red-500\">{{errors.user}}</span>
+            <span class=\"text-red-500\">{{ errors.user }}</span>
             {% if not article.image_file %}
-                <label class=\"block mb-2 text-sm font-medium text-gray-900\" for=\"image_file pt-2\">Image</label>
+                <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"image_file\">Image</label>
                 <input type=\"file\" id=\"image_file\" accept=\"image/jpeg, image/png\" name=\"image_file\" class=\"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5\">
-                <span class=\"text-red-500\">{{errors.image_file}}</span>
-                {% else %}
-                <img src=\"../uploads/{{article.image_file}}\" alt=\"{{article.image_alt}}\" class=\"w-full h-auto\" />
-                <span>Alt Text: {{article.image_alt}}</span>
-                <a href=\"alt-text-edit.php?id={{article.id}}\" class=\"text-blue-500\">Edit Alt Text</a>
-                <a href=\"img-delete.php?id={{article.id}}\" class=\"text-red-500\">Delete Image</a>
-            {%endif%}
-
+                <span class=\"text-red-500\">{{ errors.image_file }}</span>
+            {% else %}
+                <img src=\"{{ doc_root }}uploads/{{ article.image_file }}\" alt=\"{{ article.image_alt }}\" class=\"w-full h-auto\" />
+                <span>Alt Text: {{ article.image_alt }}</span>
+                <a href=\"alt-text-edit.php?id={{ article.id }}\" class=\"text-blue-500\">Edit Alt Text</a>
+                <a href=\"img-delete.php?id={{ article.id }}\" class=\"text-red-500\">Delete Image</a>
+            {% endif %}
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"image_alt\">Image Alt</label>
-            <input type=\"text\" id=\"image_alt\" name=\"image_alt\" value=\"{{article.image_alt ? ''}}\" class=\"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5\">
-            <span class=\"text-red-500\">{{errors.image_alt}}</span>
+            <input type=\"text\" id=\"image_alt\" name=\"image_alt\" value=\"{{ article.image_alt }}\" class=\"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5\">
+            <span class=\"text-red-500\">{{ errors.image_alt }}</span>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"published\">Published</label>
-            <input type=\"checkbox\" id=\"published\" name=\"published\" {{ article.published ? 'checked' : '' }} class=\"w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600\">
+            <input type=\"checkbox\" id=\"published\" name=\"published\" {{ article.published ? 'checked' : '' }} class=\"w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500\">
         </div>
         <button type=\"submit\" class=\"text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600\">Save</button>
     </form>
@@ -325,11 +325,12 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
             selector: '#content',
             menubar: false,
             toolbar: \"bold italic underline link\",
-            pluins: 'link',
+            plugins: 'link',
             link_title: false
-        })
+        });
     </script>
 </main>
-{%endblock%}", "admin/article.html", "C:\\xampp\\htdocs\\templates\\admin\\article.html");
+{% endblock %}
+", "admin/article.html", "C:\\xampp\\htdocs\\templates\\admin\\article.html");
     }
 }

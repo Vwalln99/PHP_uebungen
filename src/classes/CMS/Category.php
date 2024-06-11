@@ -49,7 +49,7 @@ class Category
     public function update(array $data): bool
     {
         try {
-            $sql = "update category set name=:name, description=:description, navigation=:navigation wheren id=:id;";
+            $sql = "update category set name=:name, description=:description, navigation=:navigation where id=:id;";
             $this->db->sql_execute($sql, $data);
             return true;
         } catch (PDOException $e) {

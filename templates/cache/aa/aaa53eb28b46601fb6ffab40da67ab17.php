@@ -35,13 +35,13 @@ class __TwigTemplate_28c7fb2ae58a0c16303cf50382804675 extends Template
     protected function doGetParent(array $context)
     {
         // line 1
-        return "layout.html";
+        return "admin/layout.html";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("layout.html", "admin/article_delete.html", 1);
+        $this->parent = $this->loadTemplate("admin/layout.html", "admin/article_delete.html", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
     }
 
@@ -69,10 +69,8 @@ class __TwigTemplate_28c7fb2ae58a0c16303cf50382804675 extends Template
         $macros = $this->macros;
         // line 5
         yield "<main class=\"container mx-auto p-10 flex flex-col items-center\">
-    <form method=\"post\" action=\"";
+    <form method=\"post\" action=\"article_delete.php?id=";
         // line 6
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-        yield "admin/article_delete.php?id=";
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["id"] ?? null), "html", null, true);
         yield "\">
         <input type=\"hidden\" name=\"id\" value=\"";
@@ -109,17 +107,17 @@ class __TwigTemplate_28c7fb2ae58a0c16303cf50382804675 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  80 => 7,  74 => 6,  71 => 5,  67 => 4,  58 => 3,  49 => 2,  38 => 1,);
+        return array (  78 => 7,  74 => 6,  71 => 5,  67 => 4,  58 => 3,  49 => 2,  38 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("{%extends 'layout.html'%}
+        return new Source("{%extends 'admin/layout.html'%}
 {% block title %} {{ title }}{% endblock %}
 {% block description %} {{ description }}{% endblock %}
 {%block content%}
 <main class=\"container mx-auto p-10 flex flex-col items-center\">
-    <form method=\"post\" action=\"{{doc_root}}admin/article_delete.php?id={{id}}\">
+    <form method=\"post\" action=\"article_delete.php?id={{id}}\">
         <input type=\"hidden\" name=\"id\" value=\"{{id}}\">
         <p class=\"text-blue-600 text-2xl mb-4\">You sure you want to delete this article?</p>
         <button type=\"submit\" class=\"bg-pink-600 text-white p-3 rounded-md w-1/3\">Yes</button>

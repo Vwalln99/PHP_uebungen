@@ -35,13 +35,13 @@ class __TwigTemplate_6b79737ee2f6b5e04cf8899d29b83e64 extends Template
     protected function doGetParent(array $context)
     {
         // line 1
-        return "layout.html";
+        return "admin/layout.html";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("layout.html", "admin/articles.html", 1);
+        $this->parent = $this->loadTemplate("admin/layout.html", "admin/articles.html", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
     }
 
@@ -167,7 +167,7 @@ class __TwigTemplate_6b79737ee2f6b5e04cf8899d29b83e64 extends Template
 
     public function getSourceContext()
     {
-        return new Source("{%extends 'layout.html'%}
+        return new Source("{%extends 'admin/layout.html'%}
 {% block title %} {{ title }}{% endblock %}
 {% block description %} {{ description }}{% endblock %}
 {%block content%}
