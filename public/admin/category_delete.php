@@ -2,25 +2,25 @@
 
 require '../../src/bootstrap.php';
 
-$navigation = [
+$data['navigation'] = [
     ['name' => 'Categories', 'url' => '../admin/categories.php'],
     ['name' => 'Articles', 'url' => '../admin/articles.php'],
 ];
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$id) {
+$data['id'] = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if (!$data['id']) {
     redirect('categories.php', ['error' => 'Category not found (id)']);
 }
 
-$category = $cms->getCategory()->fetch($id);
+$data['category'] = $cms->getCategory()->fetch($data['id']);
 
-if (!$category) {
+if (!$data['category']) {
     redirect('categories.php', ['error' => 'Category not found']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        $cms->getCategory()->delete($id);
+        $cms->getCategory()->delete($data['id']);
         redirect('categories.php', ['success' => 'Category deleted']);
     } catch (PDOException $e) {
         if ($e->errorInfo[1] === 1451) {
@@ -29,15 +29,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-?>
-
-<?php include '../includes/header.php' ?>
-<main class="container mx-auto p-10 flex flex-col items-center">
-    <form method="post" action="category_delete.php?id=<?= $id ?>">
-        <input type="hidden" name="id" value="<?= $id ?>">
-        <p class="text-blue-600 text-2xl mb-4">You sure you want to delete this category?</p>
-        <button type="submit" class="bg-pink-600 text-white p-3 rounded-md w-1/3">Yes</button>
-        <button type="submit" formaction="categories.php" class="bg-blue-500 text-white p-3 rounded-md w-1/3">No</button>
-    </form>
-</main>
-<?php include '../includes/footer.php' ?>
+echo $twig->render('admin/category_delete.html', $data);
