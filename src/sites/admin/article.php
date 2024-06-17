@@ -1,15 +1,11 @@
 <?php
-require '../../src/bootstrap.php';
 
 use EdvGraz\Validation\Validate;
 
 is_admin($session->role);
-$data['navigation'] = [
-    ['name' => 'Categories', 'url' => '../admin/categories.php'],
-    ['name' => 'Articles', 'url' => '../admin/articles.php'],
-];
 
-//$data['id']       = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? '';
+$data['id']       = $id ?? '';
+
 $data['tmp_path'] = $_FILES['image_file']['tmp_name'] ?? '';
 $data['save_to']  = '';
 
@@ -40,10 +36,11 @@ $errors = [
 if ($data['id']) {
     $article = $cms->getArticle()->fetch($data['id'], false);
     if (!$article) {
-        redirect('articles', ['error' => 'Article not found']);
+        redirect('admin/articles', ['error' => 'Article not found']);
     }
 }
-
+var_dump($article);
+exit;
 $categories = $cms->getCategory()->getAll();
 $users      = $cms->getUser()->getAll();
 $data['section'] = '';
@@ -98,14 +95,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $image_id = $cms->getImage()->save($bindings['image_file'], $bindings['image_alt']);
             $bindings['image_id'] = $image_id;
         }
+
         unset($bindings['image_file'], $bindings['image_alt']);
-        if ($data['id']) {
+
+        if ($article['id']) {
             $cms->getArticle()->update($bindings);
-            redirect(DOC_ROOT . 'admin/articles', ['success' => 'Article successfully updated']);
+            redirect(DOC_ROOT . "admin/articles/", ['success' => 'Article successfully updated']);
         } else {
             unset($bindings['id']);
             $cms->getArticle()->push($bindings);
-            redirect(DOC_ROOT . 'admin/articles', ['success' => 'Article successfully saved']);
+            redirect(DOC_ROOT . "admin/articles/", ['success' => 'Article successfully saved']);
         }
     }
 

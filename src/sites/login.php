@@ -1,5 +1,4 @@
 <?php
-require '../src/bootstrap.php';
 
 use EdvGraz\Validation\Validate;
 

@@ -1,11 +1,10 @@
 <?php
-require '../../src/bootstrap.php';
 
 use EdvGraz\Validation\Validate;
 
 is_admin($session->role);
 
-//$data['id'] = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? null;
+$data['id'] = $id;
 $data['errors'] = [
     'issue' => '',
     'name' => '',
@@ -16,10 +15,6 @@ $data['category'] = [
     'name' => '',
     'description' => '',
     'navigation' => false
-];
-$data['navigation'] = [
-    ['name' => 'Categories', 'url' => '../admin/category.php'],
-    ['name' => 'Articles', 'url' => '../admin/articles.php'],
 ];
 $data['section'] = '';
 
@@ -52,11 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             if ($data['id']) {
                 $bindings['id'] = $data['id'];
+                $id = $data['id'];
                 $cms->getCategory()->update($bindings);
-                redirect(DOC_ROOT . 'admin/categories/', ['success' => 'Category successfully updated']);
+                redirect(DOC_ROOT . "admin/categories/$id", ['success' => 'Category successfully updated']);
             } else {
                 $cms->getCategory()->push($bindings);
-                redirect(DOC_ROOT . 'admin/categories/', ['success' => 'Category successfully saved']);
+                redirect(DOC_ROOT . "admin/categories/$id", ['success' => 'Category successfully saved']);
             }
         } catch (PDOException $e) {
             $errors['issue'] = 'Name already in use';

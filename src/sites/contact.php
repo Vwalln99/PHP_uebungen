@@ -1,7 +1,5 @@
 <?php
 
-require '../src/bootstrap.php';
-
 use EdvGraz\Mail\Email;
 use EdvGraz\Validation\Validate;
 

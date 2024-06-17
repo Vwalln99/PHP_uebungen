@@ -2,7 +2,6 @@
 
 use EdvGraz\Mail\Email;
 
-require '../src/bootstrap.php';
 
 $navigation = $cms->getCategory()->fetchNavigation();
 $sent       = false;

@@ -69,7 +69,7 @@ class __TwigTemplate_7fdac41f4768535bd3deece22942116c extends Template
         $macros = $this->macros;
         // line 5
         yield "<main class=\"container w-auto mx-auto md:w-1/2 flex justify-center flex-col items-center p-5\">
-    <form class=\"w-full grid\" action=\"category.php?id=";
+    <form class=\"w-full grid\" action=\"admin/category";
         // line 6
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["id"] ?? null), "html", null, true);
         yield "\" method=\"POST\">
@@ -154,7 +154,7 @@ class __TwigTemplate_7fdac41f4768535bd3deece22942116c extends Template
 {% block description %} {{ description }}{% endblock %}
 {% block content %}
 <main class=\"container w-auto mx-auto md:w-1/2 flex justify-center flex-col items-center p-5\">
-    <form class=\"w-full grid\" action=\"category.php?id={{ id }}\" method=\"POST\">
+    <form class=\"w-full grid\" action=\"admin/category{{id}}\" method=\"POST\">
         <h2 class=\"text-3xl text-blue-500 mb-8\">{{ id ? 'Edit': 'New' }} Category</h2>
         {% if errors.issue %}
             <p class=\"error text-red-500 bg-red-200 p-5 rounded-md\">{{ errors.issue }}</p>

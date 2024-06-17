@@ -5,7 +5,7 @@
 <main class="container mx-auto flex justify-center flex-col items-center">
     <header class="p-10">
         <h1 class="text-4xl text-blue-500 mb-8">Articles</h1>
-        <button class="text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600"><a href="article.php">Add new article</a></button>
+        <button class="text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600"><a href="{{doc_root}}admin/article">Add new article</a></button>
     </header>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 max-w-xl mb-10 text-center">
         <thead class="text-xl text-white uppercase bg-gray-50 dark:bg-gray-700">
@@ -29,8 +29,8 @@
                     <td class="px-6 py-4 font-medium text-white whitespace-normal">{{article.created}}</td>
                     <td class="px-6 py-4 font-medium text-white whitespace-normal">{{article.category}}</td>
                     <td class="px-6 py-4 font-medium text-white whitespace-normal">{{article.published}}</td>
-                    <td class="px-6 py-4 font-medium text-white whitespace-normal"><a href="article.php?id={{article.id}}">Edit</a></td>
-                    <td class="px-6 py-4 font-medium text-blue-600 whitespace-normal"><a href="article_delete.php?id={{article.id}}">Delete</a></td>
+                    <td class="px-6 py-4 font-medium text-white whitespace-normal"><a href="{{doc_root}}admin/article/{{article.id}}">Edit</a></td>
+                    <td class="px-6 py-4 font-medium text-blue-600 whitespace-normal"><a href="{{doc_root}}admin/article_delete/{{article.id}}">Delete</a></td>
                 </tr>
             {%endfor%}
         </tbody>

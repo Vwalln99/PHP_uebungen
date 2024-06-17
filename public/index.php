@@ -7,7 +7,7 @@ $path = substr($path, strlen(DOC_ROOT));
 $uri_parts = explode('/', $path);
 
 if ($uri_parts[0] === 'admin') {
-    $page = 'admin/' . ($uri_parts[1] !== '' ? 'index' : '');
+    $page = 'admin/' . ($uri_parts[1] ?? 'index');
     $id = $uri_parts[2] ?? null;
 } else {
     $page = $uri_parts[0] ?? 'index';
@@ -18,8 +18,7 @@ $id = filter_var($id, FILTER_VALIDATE_INT);
 $to_page = APP_ROOT . '/src/sites/' . $page . '.php';
 
 if (file_exists($to_page)) {
-
-    require $to_page;
+    include $to_page;
 } else {
     include APP_ROOT . '/src/sites/page_not_found.php';
 }

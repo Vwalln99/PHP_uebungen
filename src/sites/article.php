@@ -1,13 +1,12 @@
 <?php
-require '../src/bootstrap.php';
 
 if (!$id) {
-    include APP_ROOT . 'public/page_not_found.php';
+    include APP_ROOT . '/src/sites/page_not_found.php';
 }
 
 $data['article'] = $cms->getArticle()->fetch($id);
 if (!$data['article']) {
-    include APP_ROOT . '/public/page_not_found.php';
+    include APP_ROOT . '/src/sites/page_not_found.php';
 }
 
 $data['comments'] = $cms->getComment()->getComments($id);

@@ -70,13 +70,17 @@ class Article
 
     public function count(string $search = ''): int
     {
-        $sql = "SELECT COUNT(id) FROM articles WHERE published = 1;";
         if ($search) {
             $sql = "SELECT COUNT(id) FROM articles WHERE published = 1 AND (title LIKE :search OR summary LIKE :search OR content LIKE :search);";
+            $params = ['search' => "%$search%"];
+        } else {
+            $sql = "SELECT COUNT(id) FROM articles WHERE published = 1;";
+            $params = [];
         }
 
-        return $this->db->sql_execute($sql, ['search' => "%$search%"])->fetchColumn();
+        return $this->db->sql_execute($sql, $params)->fetchColumn();
     }
+
 
 
     public function limit(string $search = '', int $per_page = 3, int $offset = 0): array

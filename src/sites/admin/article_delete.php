@@ -1,20 +1,17 @@
 <?php
-require '../../src/bootstrap.php';
-is_admin($session->role);
-$data['navigation'] = [
-    ['name' => 'Categories', 'url' => '../admin/categories.php'],
-    ['name' => 'Articles', 'url' => '../admin/articles.php'],
-];
 
-//$data['id'] = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+is_admin($session->role);
+
+
+$data['id'] = $id;
 if (!$data['id']) {
-    redirect('admin/articles.php', ['error' => 'Article not found (id)']);
+    redirect('admin/articles', ['error' => 'Article not found (id)']);
 }
 
 $sql = "SELECT a.title, a.images_id, i.filename FROM articles a LEFT JOIN images i ON a.images_id = i.id WHERE a.id = :id";
 $data['article'] = $cms->getArticle()->fetch($data['id']);
 if (!$data['article']) {
-    redirect('articles', ['error' => 'Article not found']);
+    redirect('admin/articles', ['error' => 'Article not found']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -27,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             unlink(UPLOAD_DIR . $data['article']['filename']);
         }
         $cms->getArticle()->delete($data['id']);
-        redirect(DOC_ROOT . 'articles', ['success' => 'Article deleted']);
+        redirect(DOC_ROOT . 'admin/articles', ['success' => 'Article deleted']);
     } catch (PDOException $e) {
-        redirect(DOC_ROOT . 'articles', ['error' => 'Article could not be deleted']);
+        redirect(DOC_ROOT . 'admin/articles', ['error' => 'Article could not be deleted']);
     }
 }
 

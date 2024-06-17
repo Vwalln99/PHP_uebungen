@@ -90,7 +90,10 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
         }
         // line 13
         yield "        <h1 class=\"text-4xl text-blue-500 mb-8\">Categories</h1>
-        <button class=\"text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600\"><a href=\"category.php\">Add a new category</a></button>
+        <button class=\"text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600\"><a href=\"";
+        // line 14
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
+        yield "admin/category\">Add a new category</a></button>
     </header>
     <table class=\"w-full text-sm text-left rtl:text-right text-gray-500 max-w-xl mb-10\">
         <thead class=\"text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700\">
@@ -112,12 +115,16 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
             // line 27
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["category"], "name", [], "any", false, false, false, 27), "html", null, true);
             yield "</td>
-                    <td class=\"px-6 py-4 font-medium text-pink-600 whitespace-nowrap\"><a href=\"category.php?id=";
+                    <td class=\"px-6 py-4 font-medium text-pink-600 whitespace-nowrap\"><a href=\"";
             // line 28
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
+            yield "admin/category/";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 28), "html", null, true);
             yield "\">Edit</a></td>
-                    <td class=\"px-6 py-4 font-medium text-blue-600 whitespace-nowrap\"><a href=\"category_delete.php?id=";
+                    <td class=\"px-6 py-4 font-medium text-blue-600 whitespace-nowrap\"><a href=\"";
             // line 29
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
+            yield "admin/category_delete/";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 29), "html", null, true);
             yield "\">Delete</a></td>
                 </tr>
@@ -155,7 +162,7 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
      */
     public function getDebugInfo()
     {
-        return array (  130 => 32,  121 => 29,  117 => 28,  113 => 27,  110 => 26,  106 => 25,  92 => 13,  86 => 11,  83 => 10,  77 => 8,  75 => 7,  71 => 5,  67 => 4,  58 => 3,  49 => 2,  38 => 1,);
+        return array (  137 => 32,  126 => 29,  120 => 28,  116 => 27,  113 => 26,  109 => 25,  95 => 14,  92 => 13,  86 => 11,  83 => 10,  77 => 8,  75 => 7,  71 => 5,  67 => 4,  58 => 3,  49 => 2,  38 => 1,);
     }
 
     public function getSourceContext()
@@ -173,7 +180,7 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
             <p class=\"error text-green-500 bg-green-200 p-5 rounded-md\">{{success}}</p>
         {%endif%}
         <h1 class=\"text-4xl text-blue-500 mb-8\">Categories</h1>
-        <button class=\"text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600\"><a href=\"category.php\">Add a new category</a></button>
+        <button class=\"text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600\"><a href=\"{{doc_root}}admin/category\">Add a new category</a></button>
     </header>
     <table class=\"w-full text-sm text-left rtl:text-right text-gray-500 max-w-xl mb-10\">
         <thead class=\"text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700\">
@@ -187,8 +194,8 @@ class __TwigTemplate_b7301ecdd76941450be906e4d6a3bf8d extends Template
             {%for category in categories%}
                 <tr class=\"bg-white border-b dark:bg-gray-800\">
                     <td class=\"px-6 py-4 font-medium text-white whitespace-nowrap\">{{category.name}}</td>
-                    <td class=\"px-6 py-4 font-medium text-pink-600 whitespace-nowrap\"><a href=\"category.php?id={{category.id}}\">Edit</a></td>
-                    <td class=\"px-6 py-4 font-medium text-blue-600 whitespace-nowrap\"><a href=\"category_delete.php?id={{category.id}}\">Delete</a></td>
+                    <td class=\"px-6 py-4 font-medium text-pink-600 whitespace-nowrap\"><a href=\"{{doc_root}}admin/category/{{category.id}}\">Edit</a></td>
+                    <td class=\"px-6 py-4 font-medium text-blue-600 whitespace-nowrap\"><a href=\"{{doc_root}}admin/category_delete/{{category.id}}\">Delete</a></td>
                 </tr>
             {%endfor%}
         </tbody>
