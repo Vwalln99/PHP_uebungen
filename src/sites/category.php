@@ -1,7 +1,7 @@
 <?php
-require '../src/bootstrap.php';
 
-$cat_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+$cat_id = $id;
 if (!$cat_id) {
     include APP_ROOT . '/public/page_not_found.php';
 }

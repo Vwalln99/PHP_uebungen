@@ -3,6 +3,7 @@ require '../../src/bootstrap.php';
 
 use EdvGraz\Validation\Validate;
 
+is_admin($session->role);
 $data['navigation'] = [
     ['name' => 'Categories', 'url' => '../admin/categories.php'],
     ['name' => 'Articles', 'url' => '../admin/articles.php'],

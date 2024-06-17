@@ -1,6 +1,6 @@
 <?php
 require '../../src/bootstrap.php';
-
+is_admin($session->role);
 $data['categories'] = $cms->getCategory()->getAll();
 
 $data['section'] = '';

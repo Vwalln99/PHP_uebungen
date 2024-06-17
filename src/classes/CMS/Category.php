@@ -15,7 +15,7 @@ class Category
 
     public function fetch(int $id): array
     {
-        $sql = "select id, name, description, navigation from category where id =:id;";
+        $sql = "select id, name, description, navigation, seo_title from category where id =:id;";
         return $this->db->sql_execute($sql, ['id' => $id])->fetch();
     }
     public function getAll(): array
@@ -26,7 +26,7 @@ class Category
 
     public function fetchNavigation(): array
     {
-        $sql = "select id, name from category where navigation=1;";
+        $sql = "select id, name, seo_title from category where navigation=1;";
         return $this->db->sql_execute($sql)->fetchAll();
     }
     public function count(): int

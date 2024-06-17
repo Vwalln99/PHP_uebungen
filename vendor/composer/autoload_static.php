@@ -29,6 +29,10 @@ class ComposerStaticInitfb9f629fe8337560dd413e7a6ac6cb57
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'E' => 
         array (
             'EdvGraz\\' => 8,
@@ -51,6 +55,10 @@ class ComposerStaticInitfb9f629fe8337560dd413e7a6ac6cb57
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'EdvGraz\\' => 
         array (

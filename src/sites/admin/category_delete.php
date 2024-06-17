@@ -1,6 +1,7 @@
 <?php
 
 require '../../src/bootstrap.php';
+is_admin($session->role);
 
 $data['navigation'] = [
     ['name' => 'Categories', 'url' => '../admin/categories.php'],

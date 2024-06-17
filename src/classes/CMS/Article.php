@@ -78,6 +78,7 @@ class Article
         return $this->db->sql_execute($sql, ['search' => "%$search%"])->fetchColumn();
     }
 
+
     public function limit(string $search = '', int $per_page = 3, int $offset = 0): array
     {
         $sql = "SELECT a.id, a.title, a.summary, a.category_id, a.user_id, c.name AS category,

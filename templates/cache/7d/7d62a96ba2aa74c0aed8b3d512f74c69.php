@@ -141,8 +141,20 @@ class __TwigTemplate_0f0bf21c6cfca08ca22d69b4e0b7a19d extends Template
     ";
         // line 54
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 64
-        yield "    ";
+        // line 56
+        yield "    <footer>
+        <div class=\"mx-auto bg-slate-50  p-4\">
+            &copy; ";
+        // line 58
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate("now", "Y"), "html", null, true);
+        yield "
+        </div>
+    </footer>
+    </body>
+    
+    </html>
+   
+    ";
         return; yield '';
     }
 
@@ -164,19 +176,7 @@ class __TwigTemplate_0f0bf21c6cfca08ca22d69b4e0b7a19d extends Template
     public function block_content($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 55
-        yield "    <footer>
-        <div class=\"mx-auto bg-slate-50  p-4\">
-            &copy; ";
-        // line 57
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate("now", "Y"), "html", null, true);
-        yield "
-        </div>
-    </footer>
-    </body>
-    
-    </html>
-    ";
+        yield "    ";
         return; yield '';
     }
 
@@ -201,7 +201,7 @@ class __TwigTemplate_0f0bf21c6cfca08ca22d69b4e0b7a19d extends Template
      */
     public function getDebugInfo()
     {
-        return array (  172 => 57,  168 => 55,  164 => 54,  157 => 8,  150 => 7,  145 => 64,  143 => 54,  130 => 44,  126 => 43,  122 => 42,  119 => 41,  109 => 37,  103 => 36,  100 => 35,  96 => 34,  92 => 32,  88 => 31,  72 => 18,  68 => 17,  57 => 9,  53 => 8,  49 => 7,  41 => 1,);
+        return array (  176 => 54,  169 => 8,  162 => 7,  149 => 58,  145 => 56,  143 => 54,  130 => 44,  126 => 43,  122 => 42,  119 => 41,  109 => 37,  103 => 36,  100 => 35,  96 => 34,  92 => 32,  88 => 31,  72 => 18,  68 => 17,  57 => 9,  53 => 8,  49 => 7,  41 => 1,);
     }
 
     public function getSourceContext()
@@ -260,6 +260,7 @@ class __TwigTemplate_0f0bf21c6cfca08ca22d69b4e0b7a19d extends Template
     </header>
 
     {% block content %}
+    {% endblock %}
     <footer>
         <div class=\"mx-auto bg-slate-50  p-4\">
             &copy; {{'now'|date('Y')}}
@@ -268,7 +269,7 @@ class __TwigTemplate_0f0bf21c6cfca08ca22d69b4e0b7a19d extends Template
     </body>
     
     </html>
-    {% endblock %}
+   
     ", "admin/layout.html", "C:\\xampp\\htdocs\\templates\\admin\\layout.html");
     }
 }
