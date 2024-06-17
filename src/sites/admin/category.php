@@ -5,7 +5,7 @@ use EdvGraz\Validation\Validate;
 
 is_admin($session->role);
 
-$data['id'] = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? null;
+//$data['id'] = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? null;
 $data['errors'] = [
     'issue' => '',
     'name' => '',
@@ -53,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($data['id']) {
                 $bindings['id'] = $data['id'];
                 $cms->getCategory()->update($bindings);
-                redirect('categories.php', ['success' => 'Category successfully updated']);
+                redirect(DOC_ROOT . 'admin/categories/', ['success' => 'Category successfully updated']);
             } else {
                 $cms->getCategory()->push($bindings);
-                redirect('categories.php', ['success' => 'Category successfully saved']);
+                redirect(DOC_ROOT . 'admin/categories/', ['success' => 'Category successfully saved']);
             }
         } catch (PDOException $e) {
             $errors['issue'] = 'Name already in use';

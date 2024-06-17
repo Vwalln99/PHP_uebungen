@@ -1,9 +1,10 @@
 <?php
 
-is_admin($session->role);
-$data['categories_count'] = $cms->getCategory()->count();
-$data['articles_count']   = $cms->getArticle()->count();
-$data['users_count']      = $cms->getUser()->count();
+$data['articles']   = $cms->getArticle()->getAll(null, true, null, 6);
+$data['navigation'] = $cms->getCategory()->fetchNavigation();
 
+$data['title']       = 'IT-News';
+$data['description'] = 'All about IT and New from Software Development and Hardware';
+$data['section']     = '';
 
-echo $twig->render('admin/index.html', $data);
+echo $twig->render('index.html', $data);

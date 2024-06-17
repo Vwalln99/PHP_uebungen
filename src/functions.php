@@ -70,7 +70,7 @@ function scale_and_copy(string $filename, string $save_to, $max_width = 1024, $m
 function is_admin(string $role): void
 {
     if ($role !== 'admin') {
-        header('Location: ' . DOC_ROOT);
+        header('Location: ' . DOC_ROOT . 'index');
         exit;
     }
 }

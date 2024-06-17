@@ -84,10 +84,8 @@ class __TwigTemplate_7fe680bbd4aee1159f0ab037eec88ad3 extends Template
         foreach ($context['_seq'] as $context["_key"] => $context["article"]) {
             // line 11
             yield "        <article class=\"w-full p-4 flex justify-between flex-col sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4\">
-            <a href=\"";
+            <a href=\"article/";
             // line 12
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-            yield "article.php?id=";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["article"], "id", [], "any", false, false, false, 12), "html", null, true);
             yield "\">
                 ";
@@ -119,10 +117,8 @@ class __TwigTemplate_7fe680bbd4aee1159f0ab037eec88ad3 extends Template
             yield "</p>
             </a>
             <p class=\"credit-text-xs\">
-                Posted in <a class=\"text-pink-400\" href=\"";
+                Posted in <a class=\"text-pink-400\" href=\"category/";
             // line 22
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-            yield "category.php?id=";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["article"], "category_id", [], "any", false, false, false, 22), "html", null, true);
             yield "\">
                     ";
@@ -130,10 +126,8 @@ class __TwigTemplate_7fe680bbd4aee1159f0ab037eec88ad3 extends Template
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["article"], "category", [], "any", false, false, false, 23), "html", null, true);
             yield "
                 </a>
-                by <a class=\"text-pink-400\" href=\"";
+                by <a class=\"text-pink-400\" href=\"user/";
             // line 25
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-            yield "user.php?id=";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["user"] ?? null), "id", [], "any", false, false, false, 25), "html", null, true);
             yield "\">
                     ";
@@ -174,7 +168,7 @@ class __TwigTemplate_7fe680bbd4aee1159f0ab037eec88ad3 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  151 => 30,  141 => 26,  135 => 25,  130 => 23,  124 => 22,  118 => 19,  113 => 18,  107 => 16,  97 => 14,  95 => 13,  89 => 12,  86 => 11,  82 => 10,  76 => 7,  72 => 6,  69 => 5,  65 => 4,  57 => 3,  49 => 2,  38 => 1,);
+        return array (  145 => 30,  135 => 26,  131 => 25,  126 => 23,  122 => 22,  116 => 19,  111 => 18,  105 => 16,  95 => 14,  93 => 13,  89 => 12,  86 => 11,  82 => 10,  76 => 7,  72 => 6,  69 => 5,  65 => 4,  57 => 3,  49 => 2,  38 => 1,);
     }
 
     public function getSourceContext()
@@ -190,7 +184,7 @@ class __TwigTemplate_7fe680bbd4aee1159f0ab037eec88ad3 extends Template
 <main class=\"flex flex-wrap p-8\" id=\"content\">
    {%for article in articles%}
         <article class=\"w-full p-4 flex justify-between flex-col sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4\">
-            <a href=\"{{doc_root}}article.php?id={{article.id}}\">
+            <a href=\"article/{{article.id}}\">
                 {%if article.image_file%}
                 <img src=\"{{doc_root}}uploads/{{article.image_file}}\" alt=\"{{article.alt_text}}\">
                 {%else%}
@@ -200,10 +194,10 @@ class __TwigTemplate_7fe680bbd4aee1159f0ab037eec88ad3 extends Template
                 <p class=\"text-gray-500 pb-2.5\">{{article.summary}}</p>
             </a>
             <p class=\"credit-text-xs\">
-                Posted in <a class=\"text-pink-400\" href=\"{{doc_root}}category.php?id={{article.category_id}}\">
+                Posted in <a class=\"text-pink-400\" href=\"category/{{article.category_id}}\">
                     {{article.category}}
                 </a>
-                by <a class=\"text-pink-400\" href=\"{{doc_root}}user.php?id={{user.id}}\">
+                by <a class=\"text-pink-400\" href=\"user/{{user.id}}\">
                     {{article.author}}</a>
             </p>
         </article>

@@ -8,9 +8,9 @@ $data['navigation'] = [
     ['name' => 'Articles', 'url' => '../admin/articles.php'],
 ];
 
-$data['id'] = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+//$data['id'] = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$data['id']) {
-    redirect('categories.php', ['error' => 'Category not found (id)']);
+    redirect('categories', ['error' => 'Category not found (id)']);
 }
 
 $data['category'] = $cms->getCategory()->fetch($data['id']);
@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $categoryName = $data['category']['name'];
         $cms->getCategory()->delete($data['id']);
-        redirect('categories.php', ['success' => 'Category deleted']);
+        redirect(DOC_ROOT . 'admin/categories', ['success' => 'Category deleted']);
     } catch (PDOException $e) {
         if ($e->errorInfo[1] === 1451) {
-            redirect('categories.php', ['error' => 'Category ' . $categoryName . ' can not be removed, there are Articles in the Category']);
+            redirect(DOC_ROOT . 'admin/categories', ['error' => 'Category ' . $categoryName . ' can not be removed, there are Articles in the Category']);
         }
     }
 }

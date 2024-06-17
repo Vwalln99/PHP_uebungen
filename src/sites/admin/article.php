@@ -9,7 +9,7 @@ $data['navigation'] = [
     ['name' => 'Articles', 'url' => '../admin/articles.php'],
 ];
 
-$data['id']       = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? '';
+//$data['id']       = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? '';
 $data['tmp_path'] = $_FILES['image_file']['tmp_name'] ?? '';
 $data['save_to']  = '';
 
@@ -40,7 +40,7 @@ $errors = [
 if ($data['id']) {
     $article = $cms->getArticle()->fetch($data['id'], false);
     if (!$article) {
-        redirect('articles.php', ['error' => 'Article not found']);
+        redirect('articles', ['error' => 'Article not found']);
     }
 }
 
@@ -101,11 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unset($bindings['image_file'], $bindings['image_alt']);
         if ($data['id']) {
             $cms->getArticle()->update($bindings);
-            redirect('articles.php', ['success' => 'Article successfully updated']);
+            redirect(DOC_ROOT . 'admin/articles', ['success' => 'Article successfully updated']);
         } else {
             unset($bindings['id']);
             $cms->getArticle()->push($bindings);
-            redirect('articles.php', ['success' => 'Article successfully saved']);
+            redirect(DOC_ROOT . 'admin/articles', ['success' => 'Article successfully saved']);
         }
     }
 
