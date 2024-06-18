@@ -83,7 +83,7 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
     ";
         }
         // line 10
-        yield "    <form action=\"article/";
+        yield "    <form action=\"/public/admin/article/";
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["article"] ?? null), "id", [], "any", false, false, false, 10), "html", null, true);
         yield "\" method=\"POST\" enctype=\"multipart/form-data\" class=\"grid gap-6 mb-6 md:grid-cols-2 md:w-full\">
         <div>
@@ -274,7 +274,7 @@ class __TwigTemplate_51bf05d04d8567b75cfde432185ddc40 extends Template
     {% if errors.issue %}
         <p class=\"error text-red-500 bg-red-200 p-5 rounded-md\">{{ errors.issue }}</p>
     {% endif %}
-    <form action=\"article/{{ article.id }}\" method=\"POST\" enctype=\"multipart/form-data\" class=\"grid gap-6 mb-6 md:grid-cols-2 md:w-full\">
+    <form action=\"/public/admin/article/{{ article.id }}\" method=\"POST\" enctype=\"multipart/form-data\" class=\"grid gap-6 mb-6 md:grid-cols-2 md:w-full\">
         <div>
             <label class=\"block mb-2 text-sm font-medium text-gray-900 pt-2\" for=\"title\">Title</label>
             <input type=\"text\" id=\"title\" name=\"title\" value=\"{{ article.title }}\" class=\"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5\">

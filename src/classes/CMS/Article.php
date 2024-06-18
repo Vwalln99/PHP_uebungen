@@ -12,18 +12,18 @@ class Article
 
     public function fetch(int $id, bool $published = true): array
     {
-        $sql = "select a.id, a.title, a.summary, a.content, a.created, a.category_id, a.user_id, a.published, c.name as category,
-        concat(u.forename, ' ', u.surname) as author,
-        i.id as image_id, i.filename as image_file, i.alttext as image_alt
-        from articles as a
-        join category as c on a.category_id = c.id
-        join user as u on a.user_id= u.id
-        left join images as i on a.images_id = i.id
-        where a.id=:id
+        $sql = "SELECT a.id, a.title, a.summary, a.content, a.created, a.category_id, a.user_id, a.published, c.name AS category,
+        concat(u.forename, ' ', u.surname) AS author,
+        i.id AS image_id, i.filename AS image_file, i.alttext AS image_alt
+        FROM articles AS a
+        JOIN category AS c ON a.category_id = c.id
+        JOIN user AS u ON a.user_id= u.id
+        LEFT JOIN images AS i ON a.images_id = i.id
+        WHERE a.id=:id
         ";
 
         if ($published) {
-            $sql .= "and a.published=1";
+            $sql .= "AND a.published = 1";
         }
         $sql .= ";";
 
@@ -53,6 +53,7 @@ class Article
     public function update(array $bindings): void
     {
         $sql = "UPDATE articles SET title = :title, summary = :summary, content = :content, published = :published, category_id = :category_id, user_id = :user_id, images_id = :image_id WHERE id = :id;";
+
         $this->db->sql_execute($sql, $bindings);
     }
 

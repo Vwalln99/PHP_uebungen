@@ -5,13 +5,13 @@ is_admin($session->role);
 
 $data['id'] = $id;
 if (!$data['id']) {
-    redirect('admin/articles', ['error' => 'Article not found (id)']);
+    redirect('admin/articles/', ['error' => 'Article not found (id)']);
 }
 
 $sql = "SELECT a.title, a.images_id, i.filename FROM articles a LEFT JOIN images i ON a.images_id = i.id WHERE a.id = :id";
 $data['article'] = $cms->getArticle()->fetch($data['id']);
 if (!$data['article']) {
-    redirect('admin/articles', ['error' => 'Article not found']);
+    redirect('admin/articles/', ['error' => 'Article not found']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             unlink(UPLOAD_DIR . $data['article']['filename']);
         }
         $cms->getArticle()->delete($data['id']);
-        redirect(DOC_ROOT . 'admin/articles', ['success' => 'Article deleted']);
+        redirect(DOC_ROOT . 'admin/articles/', ['success' => 'Article deleted']);
     } catch (PDOException $e) {
-        redirect(DOC_ROOT . 'admin/articles', ['error' => 'Article could not be deleted']);
+        redirect(DOC_ROOT . 'admin/articles/', ['error' => 'Article could not be deleted']);
     }
 }
 

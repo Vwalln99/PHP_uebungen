@@ -4,7 +4,7 @@ use EdvGraz\Validation\Validate;
 
 is_admin($session->role);
 
-$data['id']       = $id ?? '';
+$data['id']       = $id;
 
 $data['tmp_path'] = $_FILES['image_file']['tmp_name'] ?? '';
 $data['save_to']  = '';
@@ -36,11 +36,9 @@ $errors = [
 if ($data['id']) {
     $article = $cms->getArticle()->fetch($data['id'], false);
     if (!$article) {
-        redirect('admin/articles', ['error' => 'Article not found']);
+        redirect('admin/articles/', ['error' => 'Article not found']);
     }
 }
-var_dump($article);
-exit;
 $categories = $cms->getCategory()->getAll();
 $users      = $cms->getUser()->getAll();
 $data['section'] = '';
@@ -98,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         unset($bindings['image_file'], $bindings['image_alt']);
 
-        if ($article['id']) {
+        if ($id) {
             $cms->getArticle()->update($bindings);
             redirect(DOC_ROOT . "admin/articles/", ['success' => 'Article successfully updated']);
         } else {
