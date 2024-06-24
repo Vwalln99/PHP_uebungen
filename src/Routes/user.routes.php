@@ -22,14 +22,14 @@ enum UserAction: string
     function getResponse()
     {
         $user = new User('viktoria', 'wallner', 25);
-        $user_id = 1;
-        $user_data = ['name' => 'test'];
+        $user_id = $_REQUEST['id'] ?? null;
+        $user_data = json_decode(file_get_contents('php://input'));
 
         $response = match ($this) {
             self::CREATE => $user->create($user_data),
             self::GET => $user->get($user_id),
             self::GET_ALL => $user->getAll(),
-            self::UPDATE => $user->update($user),
+            self::UPDATE => $user->update($user_data),
             self::REMOVE => $user->remove($user_id),
         };
 

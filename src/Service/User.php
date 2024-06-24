@@ -2,31 +2,35 @@
 
 namespace Vw\Api\Service;
 
+use Vw\Api\Validation\CustomValidation;
+
 class User
 {
-    private string $firstname;
-    private string $lastname;
-    private int $age;
 
-    public function __construct(string $first, string $last, int $age)
-    {
-        $this->firstname = $first;
-        $this->lastname = $last;
-        $this->age = $age;
+
+    public function __construct(
+        private string $firstname,
+        private string $lastname,
+        private int $age
+    ) {
     }
 
-    public function create(mixed $user_data): array|object
+    public function create(mixed $data): array|object
     {
-        return [
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'age' => $this->age,
-        ];
+        $validation = new CustomValidation($data);
+        if ($validation->validate_create()) {
+            return ['data' => 'passed validation'];
+        }
+        return ['data' => 'validation not passed'];
     }
 
     public function get(string $user_id): array|object
     {
-        return ['message' => 'get'];
+        $validation = new CustomValidation($user_id);
+        if ($validation->validateUuid()) {
+            return ['data' => 'passed validation'];
+        }
+        return ['data' => 'validation not passed'];
     }
 
     public function getAll(): array
@@ -34,7 +38,7 @@ class User
         return ['message' => 'getAll'];
     }
 
-    public function update(mixed $user): array
+    public function update(mixed $user_data): array
     {
         return ['message' => 'update'];
     }
