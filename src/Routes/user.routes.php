@@ -21,7 +21,7 @@ enum UserAction: string
 
     function getResponse()
     {
-        $user = new User('viktoria', 'wallner', 25);
+        $user = new User();
         $user_id = $_REQUEST['id'] ?? null;
         $user_data = json_decode(file_get_contents('php://input'));
 
@@ -29,7 +29,7 @@ enum UserAction: string
             self::CREATE => $user->create($user_data),
             self::GET => $user->get($user_id),
             self::GET_ALL => $user->getAll(),
-            self::UPDATE => $user->update($user_data),
+            self::UPDATE => $user->update($user),
             self::REMOVE => $user->remove($user_id),
         };
 

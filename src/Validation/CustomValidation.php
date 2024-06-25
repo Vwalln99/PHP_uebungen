@@ -14,9 +14,9 @@ class CustomValidation
 
     public function validate_create(): bool
     {
-        $validation = v::attribute('firstname', v::stringType()->length(self::MAX_STRING, self::MIN_STRING))
-            ->attribute('lastname', v::stringType()->length(self::MAX_STRING, self::MIN_STRING))
-            ->attribute('email', v::email(), false)
+        $validation = v::attribute('firstname', v::stringType()->length(self::MIN_STRING, self::MAX_STRING))
+            ->attribute('lastname', v::stringType()->length(self::MIN_STRING, self::MAX_STRING))
+            ->attribute('email', v::email())
             ->attribute('phone-num', v::phone(), false);
 
         return $validation->validate($this->data);

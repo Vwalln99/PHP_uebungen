@@ -3,16 +3,14 @@
 namespace Vw\Api\Service;
 
 use Vw\Api\Validation\CustomValidation;
+use Vw\Api\Validation\ValidationException;
 
 class User
 {
 
 
-    public function __construct(
-        private string $firstname,
-        private string $lastname,
-        private int $age
-    ) {
+    public function __construct()
+    {
     }
 
     public function create(mixed $data): array|object
@@ -21,7 +19,7 @@ class User
         if ($validation->validate_create()) {
             return ['data' => 'passed validation'];
         }
-        return ['data' => 'validation not passed'];
+        throw new ValidationException('Invalid input, validation failed');
     }
 
     public function get(string $user_id): array|object
@@ -30,7 +28,7 @@ class User
         if ($validation->validateUuid()) {
             return ['data' => 'passed validation'];
         }
-        return ['data' => 'validation not passed'];
+        throw new ValidationException('Invalid input, validation failed, uuid not valid');
     }
 
     public function getAll(): array
@@ -38,13 +36,21 @@ class User
         return ['message' => 'getAll'];
     }
 
-    public function update(mixed $user_data): array
+    public function update(mixed $user): array
     {
-        return ['message' => 'update'];
+        $validation = new CustomValidation($user);
+        if ($validation->validate_update()) {
+            return ['data' => 'passed validation'];
+        }
+        throw new ValidationException('Invalid input, validation failed, uuid not valid');
     }
 
     public function remove(string $user_id): array
     {
-        return ['message' => 'remove'];
+        $validation = new CustomValidation($user_id);
+        if ($validation->validateUuid()) {
+            return ['data' => 'passed validation'];
+        }
+        throw new ValidationException('Invalid input, validation failed, uuid not valid');
     }
 }
