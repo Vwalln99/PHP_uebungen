@@ -31,7 +31,7 @@ class User
 
             $valid = $user_uuid = UserModel::create($user_entity);
             if ($valid) {
-                $data->uuid = $user_entity->get_uuid();
+                $data->uuid = $user_uuid;
                 return $data;
             }
             return [];
@@ -50,7 +50,7 @@ class User
 
     public function getAll(): array
     {
-        return ['message' => 'getAll'];
+        return UserModel::getAll();
     }
 
     public function update(mixed $user): array
