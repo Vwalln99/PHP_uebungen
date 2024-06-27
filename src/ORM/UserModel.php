@@ -1,20 +1,24 @@
 <?php
 
 namespace Cm\Api\ORM;
+
 use Cm\Api\Entity\User as UserEntity;
 use RedBeanPHP\R;
 use RedBeanPHP\RedException\SQL;
 
-final class UserModel {
-	const string TABLE_NAME = 'users';
+final class UserModel
+{
+	const  TABLE_NAME = 'users';
 
-	public static function create(UserEntity $data): false|string {
+	public static function create(UserEntity $data): false|string
+	{
 		$user_bean = R::dispense(self::TABLE_NAME);
 		$user_bean->uuid = $data->get_uuid();
 		$user_bean->firstname = $data->get_firstname();
 		$user_bean->lastname = $data->get_lastname();
 		$user_bean->phone = $data->get_phone();
 		$user_bean->email = $data->get_email();
+		$user_bean->password = $data->get_password();
 		$user_bean->created_at = $data->get_created_at();
 
 		try {
@@ -28,21 +32,22 @@ final class UserModel {
 		return $user_bean->uuid;
 	}
 
-	public static function update(string $uuid, UserEntity $user): false|string|int {
+	public static function update(string $uuid, UserEntity $user): false|string|int
+	{
 		$user_bean = R::findOne(self::TABLE_NAME, 'uuid = :uuid', ['uuid' => $uuid]);
-		if($user_bean) {
-			if ( $firstname = $user->get_firstname() ) {
+		if ($user_bean) {
+			if ($firstname = $user->get_firstname()) {
 				$user_bean->firstname = $firstname;
 			};
-			if ( $lastname = $user->get_lastname() ) {
+			if ($lastname = $user->get_lastname()) {
 				$user_bean->lastname = $lastname;
 			};
-			if ( $phone = $user->get_phone() ) {
+			if ($phone = $user->get_phone()) {
 				$user_bean->phone = $phone;
 			}
 			try {
-				return R::store( $user_bean );
-			} catch ( SQL $e ) {
+				return R::store($user_bean);
+			} catch (SQL $e) {
 				return false;
 			} finally {
 				R::close();
@@ -51,14 +56,15 @@ final class UserModel {
 		return false;
 	}
 
-	public static function getAll(): ?array {
+	public static function getAll(): ?array
+	{
 		$user_beans = R::findAll(self::TABLE_NAME);
 		$user_exists = $user_beans && count($user_beans);
-		if(!$user_exists) {
+		if (!$user_exists) {
 			return [];
 		}
-		
-		return array_map(function(object $user): ?array{
+
+		return array_map(function (object $user): ?array {
 			$entity = (new UserEntity())->unSerialize($user->export());
 			return [
 				'uuid' => $entity->get_uuid(),
@@ -70,21 +76,37 @@ final class UserModel {
 			];
 		}, $user_beans);
 	}
-	public static function getByUuid(string $uuid): UserEntity {
+	public static function getByUuid(string $uuid): UserEntity
+	{
 		$user = R::findOne(self::TABLE_NAME, 'uuid = :uuid', ['uuid' => $uuid]);
 		return (new UserEntity())->unSerialize($user->export());
 	}
-	public static function getByEmail(string $email): UserEntity {
+	public static function getByEmail(string $email): UserEntity
+	{
 		$user = R::findOne(self::TABLE_NAME, 'email = :email', ['email' => $email]);
 		return (new UserEntity())->unSerialize($user->export());
-
 	}
 
-	public static function remove(string $uuid): bool {
+	public static function remove(string $uuid): bool
+	{
 		$user = R::findOne(self::TABLE_NAME, 'uuid = :uuid', ['uuid' => $uuid]);
-		if($user) {
+		if ($user) {
 			return (bool) R::trash($user);
 		}
 		return false;
+	}
+	public static function email_exists(string $email): bool
+	{
+		$user_bean = R::findOne(self::TABLE_NAME, 'email = :email', ['email' => $email]);
+		return $user_bean !== null;
+	}
+
+	public static function setUserToken(string $jwt_token, string $uuid): void
+	{
+		$user_bean = R::findOne(self::TABLE_NAME, 'uuis=:uuid', ['uuid' => $uuid]);
+		$user_bean->session_token = $jwt_token;
+		$user_bean->last_session = time();
+		R::store($user_bean);
+		R::close();
 	}
 }
