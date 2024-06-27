@@ -1,11 +1,16 @@
 <?php
 
-namespace Vw\Api\Helpers;
+namespace Cm\Api\Helpers;
+
 
 /**
- * returns data in json format
+ * Returns Data in JSON format
+ * @param mixed $data
+ *
+ * @return void
+ *
  */
-function response(mixed $data): void
-{
-    echo json_encode($data);
+function response(mixed $data):void {
+	echo json_encode($data);
 }
+

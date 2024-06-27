@@ -1,5 +1,4 @@
 <?php
-
 use RedBeanPHP\R;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -9,5 +8,6 @@ require dirname(__DIR__) . '/src/Helpers/headers.php';
 require dirname(__DIR__) . '/src/Config/database.php';
 require dirname(__DIR__) . '/src/Routes/routes.php';
 
-var_dump(R::testConnection());
+echo R::testConnection();
 exit;
+

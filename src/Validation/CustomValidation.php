@@ -1,38 +1,37 @@
 <?php
-
-namespace Vw\Api\Validation;
-
+namespace Cm\Api\Validation;
 use Respect\Validation\Validator as v;
 
-class CustomValidation
-{
-    const MAX_STRING = 50;
-    const MIN_STRING = 3;
-    public function __construct(private readonly mixed $data)
-    {
-    }
+class CustomValidation {
+	const int MIN_STRING = 3;
+	const int MAX_STRING = 50;
 
-    public function validate_create(): bool
-    {
-        $validation = v::attribute('firstname', v::stringType()->length(self::MIN_STRING, self::MAX_STRING))
-            ->attribute('lastname', v::stringType()->length(self::MIN_STRING, self::MAX_STRING))
-            ->attribute('email', v::email())
-            ->attribute('phone-num', v::phone(), false);
+	public function __construct(private readonly mixed $data) {
+	}
 
-        return $validation->validate($this->data);
-    }
-    public function validate_update(): bool
-    {
-        $validation = v::attribute('firstname', v::stringType()->length(self::MAX_STRING, self::MIN_STRING))
-            ->attribute('user_uuid', v::uuid(4))
-            ->attribute('lastname', v::stringType()->length(self::MAX_STRING, self::MIN_STRING))
-            ->attribute('phone-num', v::phone(), false);
+	public function validate_create(): bool {
+			$validation = v::attribute('firstname', v::stringType()
+			                                          ->length(self::MIN_STRING, self::MAX_STRING))
+											->attribute('lastname', v::stringType()
+											                         ->length(self::MIN_STRING, self::MAX_STRING))
+											->attribute('email', v::email())
+											->attribute('phone_num', v::phone(), mandatory: false);
 
-        return $validation->validate($this->data);
-    }
+			return $validation->validate($this->data);
+	}
 
-    public function validateUuid(): bool
-    {
-        return v::uuid(4)->validate($this->data);
-    }
+	public function validate_update(): bool {
+		$validation = v::attribute('uuid', v::uuid(4))
+										->attribute('firstname', v::stringType()
+		                                         ->length(self::MIN_STRING, self::MAX_STRING))
+		               ->attribute('lastname', v::stringType()
+		                                        ->length(self::MIN_STRING, self::MAX_STRING))
+		               ->attribute('phone_num', v::phone(), mandatory: false);
+		return $validation->validate($this->data);
+	}
+
+	public function validateUuid(): bool {
+		return v::uuid(version: 4)->validate($this->data);
+	}
+
 }

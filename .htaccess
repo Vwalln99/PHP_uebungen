@@ -1,3 +1,8 @@
-
-RewriteEngine ON
-RewriteRule ^([^/]+)/?([^/]+)?/?([^/]+)?/?$ index.php?resource=$1&action=$2&id=$3 [QSA,L]
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+    Options +FollowSymlinks
+    RewriteEngine On
+    RewriteRule ^([^/]+)/?([^/]+)?/?([^/]+)?/?$ index.php?resource=$1&action=$2&id=$3 [QSA,L]
+</IfModule>

@@ -1,7 +1,7 @@
 <?php
 
-use Vw\Api\Config\AllowCors;
+use Cm\Api\Config\AllowCors;
 
 (new AllowCors())->init();
-
 header('Content-Type: application/json');
+

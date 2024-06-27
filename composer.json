@@ -1,19 +1,28 @@
 {
-    "name": "vw/api",
+    "name": "cm/api",
     "description": "basic REST API",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Vw\\Api\\": "src/"
+            "Cm\\Api\\": "src/"
         }
     },
+    "authors": [
+        {
+            "name": "vertskater",
+            "email": "vertskater@gmx.at"
+        }
+    ],
     "minimum-stability": "stable",
     "require": {
         "filp/whoops": "^2.15",
         "respect/validation": "^2.3",
         "vlucas/phpdotenv": "^5.6",
         "gabordemooij/redbean": "^5.7",
-        "ramsey/uuid": "^4.7"
+        "ramsey/uuid": "^4.7",
+        "ph-7/just-http-status-codes": "^1.1",
+        "ph-7/php-http-response-header": "^1.0",
+        "firebase/php-jwt": "^6.10"
     }
 }

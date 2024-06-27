@@ -1,46 +1,55 @@
 <?php
 
-namespace Vw\Routes;
-
-use Vw\Api\Service\User;
+namespace Cm\Api\Routes;
+use Cm\Api\Service\User;
+use Cm\Api\Routes\Exception\NotAllowedException;
 
 
 $action = $_REQUEST['action'] ?? null;
 
-enum UserAction: string
-{
-    case CREATE = 'create';
-    case GET = 'get';
+enum UserAction: string {
+	case CREATE = 'create';
+	case GET = 'get';
+	case GET_ALL = 'get_all';
+	case UPDATE = 'update';
+	case REMOVE  = 'remove';
 
-    case GET_ALL = 'get_all';
-    case REMOVE = 'remove';
-    case UPDATE = 'update';
+	function getResponse(): string {
 
-    //TODO: get user data from http-body
+		$user = new User();
+		$user_data = json_decode(file_get_contents('php://input'));
+		$user_id = $_REQUEST['id'] ?? null;
+
+		$http_method = match($this) {
+			self::CREATE => Http::POST_METHOD,
+			self::GET, self::GET_ALL => Http::GET_METHOD,
+			self::REMOVE => Http::DELETE_METHOD,
+			self::UPDATE => Http::PUT_METHOD
+		};
+		if(!Http::matchHttpRequestMethod($http_method)) {
+			throw new NotAllowedException('Method not allowed');
+		}
 
 
-    function getResponse()
-    {
-        $user = new User();
-        $user_id = $_REQUEST['id'] ?? null;
-        $user_data = json_decode(file_get_contents('php://input'));
-
-        $response = match ($this) {
-            self::CREATE => $user->create($user_data),
-            self::GET => $user->get($user_id),
-            self::GET_ALL => $user->getAll(),
-            self::UPDATE => $user->update($user),
-            self::REMOVE => $user->remove($user_id),
-        };
-
-        return json_encode($response);
-    }
+		$response = match($this) {
+			self::CREATE => $user->create($user_data),
+			self::GET => $user->get($user_id),
+			self::GET_ALL => $user->getAll(),
+			self::UPDATE => $user->update($user_data),
+			self::REMOVE => $user->remove($user_id)
+		};
+		return json_encode($response);
+	}
 }
-
 
 $user_action = UserAction::tryFrom($action);
-if ($user_action) {
-    echo $user_action->getResponse();
+if($user_action) {
+	echo $user_action->getResponse();
 } else {
-    require '404.routes.php';
+	require '404.routes.php';
 }
+
+
+
+
+
